@@ -103,25 +103,21 @@ id:number;
   }
 
   onDeleteTask(idtask:number){
-
     console.log( "deleted task ",idtask)
+    console.log(this.selectedTask.creator.id)
     console.log(idtask)
+    if(this.selectedTask.creator.id==this.userActuel.id){
     this.taskServ.deleteTask(idtask).subscribe(()=>{
     this.getTasks();
-
     console.log("delete succussfuly")
-  
     this.clickButton('delete-close');
-
-
     }, (errorResponse: HttpErrorResponse) => {
       console.log(errorResponse);
     console.log(errorResponse.error.message);
     this.clickButton('delete-close');
-
-    })
-
-
+    })}else{console.log("you don't have permissions")
+    this.clickButton('delete-close');
+  }
   }
 
 

@@ -18,7 +18,9 @@ export class TaskService {
 public listTask():Observable<Task[]>{
     return this.http.get<Task[]>(`${this.host}/task/gettasks`);
 }
-
+public taskByid(id:number):Observable<Task>{
+  return this.http.get<Task>(`${this.host}/task/getTask/${id}`);
+}
 public listTaskByCreator(id:number):Observable<Task[]>{
   return this.http.get<Task[]>(`${this.host}/task/TaskByCreator/${id}`);
 }
