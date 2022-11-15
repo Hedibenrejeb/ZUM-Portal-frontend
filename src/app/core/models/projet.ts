@@ -13,7 +13,5 @@ export class Projet {
         this.name='';
         this.starter_at=null;
         this.created_by={ id:0 ,firstname:'',lastname: '', email:'', role:''};
-
-
     }
 }

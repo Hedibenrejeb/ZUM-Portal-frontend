@@ -14,13 +14,7 @@ export class UserProfileService {
     // getAll() {
     //     return this.http.get<User[]>(this.baseurl +`api/login`);
     // }
-    
 
-
-
-    getallusers():Observable<any> {
-        return this.http.get(`${this.host}/auth/list-user/`);
-    }
     register(user: any):Observable<any> {
         return this.http.post(`${this.host}/auth/register-user/`, user);
     }
@@ -36,10 +30,12 @@ export class UserProfileService {
     }
 
     update(user:any):Observable<any> {
-        return this.http.put(`${this.host}/auth/updateafterregister/` + user.id , user);
+        return this.http.put(`${this.host}/auth/updateafterregister/` + user.id  , user);
     }
 
-
+    getallusers():Observable<any> {
+        return this.http.get(`${this.host}/auth/list-user/`);
+    }
     // getAll() {
     //     return this.http.get<User[]>(`/api/login`);
     // }

@@ -20,7 +20,7 @@ import { Projet } from "src/app/core/models/projet";
 export class ProjectlistComponent implements OnInit {
   submitted = false;
   breadCrumbItems: Array<{}>;
-  projects: any[]=[];
+  projects: Array<{}>;
   noData = true;
   updatingError;
   projectToUpdate;
@@ -82,7 +82,6 @@ export class ProjectlistComponent implements OnInit {
   getAll() {
     this.projectservice.getAll().subscribe(result => {
       this.projects = result.results;
-      console.log(this.projects[0]["starter_at"])
       console.log('results', this.projects);
       if (this.projects.length > 0) {
         this.noData = false;
@@ -125,15 +124,14 @@ export class ProjectlistComponent implements OnInit {
     this.modalService.open(template, { centered: true });
   }
 
-  openUpdateModal(template: TemplateRef<any>, project) {/* 2022/mm/dd */
+  openUpdateModal(template: TemplateRef<any>, project) {
     this.openModal2(template);
     this.projectToUpdate = project;
     let d1, d2, date1, date2;
     date1 = this.projectToUpdate.starter_at;
     date2 = this.projectToUpdate.end_date;
-    d1 = formatDate(date1, 'dd/MM/yyyy', 'en_US')
-    d2 = formatDate(date2, 'dd/MM/yyyy', 'en_US')
-    console.log(d1 , d2 ,"test")
+    d1 = formatDate(date1, 'MM/dd/yyyy', 'en_US')
+    d2 = formatDate(date2, 'MM/dd/yyyy', 'en_US')
     this.date = d1.concat("-", d2.toString())
     this.selected = this.date
     this.formUpdate = this.formBuilder.group({
@@ -142,7 +140,6 @@ export class ProjectlistComponent implements OnInit {
       selected: [this.date, Validators.required],
       status: [project.status, Validators.required],
     })
-
   }
 
   // fixingCode(newProject: Project) {
@@ -218,20 +215,19 @@ export class ProjectlistComponent implements OnInit {
     }
   }
   
-  traiterInput(){/* (14/mm/yyyy-dd/mmm/yyyy ====> yyyyy-mm-dd) */
+  traiterInput(){
     let d1, d2;
-    console.log(this.dateProject)
     d1 = this.dateProject[0];
     d2 = this.dateProject[1];
     console.log("d1,d2", d1, d2)
     let date1 = d1.split("/", 3) //[19 ,10, 2022 ]
     let date2 = d2.split("/", 3)
-    d1 = date1[2] + "-" + date1[1] + "-" + date1[0]
-    d2 = date2[2] + "-" + date2[1] + "-" + date2[0]
     console.log("date:", date1, date2)
     console.log("datestart", d1, "dateFin", d2)
-    this.projectToUpdate.starter_at = d1;
-    this.projectToUpdate.end_date = d2;
+    let start = formatDate(d1, 'yyyy-MM-dd', 'en_US')
+    let end = formatDate(d2, 'yyyy-MM-dd', 'en_US')
+    this.projectToUpdate.starter_at = start;
+    this.projectToUpdate.end_date = end;
     }
 
   openDeleteModal(confirmDelete: TemplateRef<any>, projects) {

@@ -243,8 +243,8 @@ fixingCode(newTask:Task){
 
    console.log("date:",date1,date2)
 
-  d1 = date1[1] +"/" + date1[0]  +"/" + date1[2]
-  d2 = date2[1] +"/" + date2[0]  +"/" + date2[2]
+  // d1 = date1[1] +"/" + date1[0]  +"/" + date1[2]
+  // d2 = date2[1] +"/" + date2[0]  +"/" + date2[2]
    console.log("datestart",d1,"dateFin",d2)
 
   let start=formatDate(d1,'yyyy-MM-dd','en_US')

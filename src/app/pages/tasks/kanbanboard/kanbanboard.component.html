@@ -1,21 +1,15 @@
 <div class="container-fluid" [hidden]="!isManager" >
-
-<div class="col-lg-12" >
-  <div class="card bg-info text-white-50 ">
-    <div class="card-body">
-      <h5 class="mt-0 mb-4 text-white"><i class="mdi mdi-alert-circle-outline mr-3"></i>Info </h5>
-      <p class="card-text"> Kanban Board is not accessible for the Manager . Please choose project to manipulate the tasks.</p>
-    
-      <a href="javascript: void(0);" [routerLink]="['/p/projects/list']" class="color-white"> <i class="fa fa-arrow-right"></i>  List Project</a>
-
+  <div class="col-lg-12" >
+    <div class="card bg-info text-white-50 ">
+      <div class="card-body">
+        <h5 class="mt-0 mb-4 text-white"><i class="mdi mdi-alert-circle-outline mr-3"></i>Info </h5>
+        <p class="card-text"> Kanban Board is not accessible for the Manager . Please choose project to manipulate the tasks.</p>
+        <a href="javascript: void(0);" [routerLink]="['/p/projects/list']" class="color-white"> <i class="fa fa-arrow-right"></i>  List Project</a>
+      </div>
     </div>
   </div>
-</div>
-</div>
-
-<div class="container-fluid" [hidden]="!isSimpleUser"  >
-
-  
+  </div>
+  <div class="container-fluid" [hidden]="!isSimpleUser"  >
   <!-- start page title -->
   <app-page-title title="Kanban Board" [breadcrumbItems]="breadCrumbItems"></app-page-title>
   <!-- end page title -->
@@ -23,8 +17,6 @@
   <div class="row">
     <div class="col-lg-4">
       <div class="card ">
-
-
         <div class="card-body">
 
 
@@ -38,7 +30,6 @@
                     <a href="javascript: void(0);" class="dropdown-toggle arrow-none" ngbDropdownToggle>
                       <i class="mdi mdi-dots-vertical m-0 text-muted h5"></i>
                     </a>
-
                     <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
                       <a class="dropdown-item text-success" href="javascript: void(0);" (click)="onEditTask(task)">
                         <span class="fa-stack">
@@ -51,22 +42,15 @@
                           <i class="fa fa-trash fa-stack-1x fa-inverse text-danger"></i>
                         </span> Delete
                       </a>
-                      <a class="dropdown-item text-warning" href="javascript: void(0);" (click)="onSelectTask(task);detailsModal(scrollDataModal)">
+                      <a class="dropdown-item text-warning" href="javascript: void(0);"
+                        (click)="onSelectTask(task);detailsModal(scrollDataModal)">
                         <span class="fa-stack">
                           <i class="fa fa-search-plus fa-stack-1x fa-inverse text-warning"></i>
                         </span> Details
 
 
                       </a>
-
                     </div>
-                   <!--  <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-                      <a class="dropdown-item" href="javascript: void(0);" (click)="onEditTask(task)">Edit</a>
-                      <a class="dropdown-item" href="javascript: void(0);"
-                        (click)="onSelectTask(task);deleteMD(deleteModal)">Delete</a>
-                      <a class="dropdown-item" href="javascript: void(0);" (click)="onSelectTask(task);detailsModal(scrollDataModal)">Details</a>
-
-                    </div> -->
                   </div>
                   <div class="float-end ms-2">
                     <span class="badge rounded-pill badge-soft-secondary font-size-12" [ngClass]=" { 
@@ -144,7 +128,8 @@
                           <i class="fa fa-trash fa-stack-1x fa-inverse text-danger"></i>
                         </span> Delete
                       </a>
-                      <a class="dropdown-item text-warning" href="javascript: void(0);" (click)="onSelectTask(task);detailsModal(scrollDataModal)">
+                      <a class="dropdown-item text-warning" href="javascript: void(0);"
+                        (click)="onSelectTask(task);detailsModal(scrollDataModal)">
                         <span class="fa-stack">
                           <i class="fa fa-search-plus fa-stack-1x fa-inverse text-warning"></i>
                         </span> Details
@@ -221,7 +206,6 @@
                     <a href="javascript: void(0);" class="dropdown-toggle arrow-none" ngbDropdownToggle>
                       <i class="mdi mdi-dots-vertical m-0 text-muted h5"></i>
                     </a>
-
                     <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
                       <a class="dropdown-item text-success" href="javascript: void(0);" (click)="onEditTask(task)">
                         <span class="fa-stack">
@@ -234,21 +218,16 @@
                           <i class="fa fa-trash fa-stack-1x fa-inverse text-danger"></i>
                         </span> Delete
                       </a>
-                      <a class="dropdown-item text-warning" href="javascript: void(0);" (click)="onSelectTask(task);detailsModal(scrollDataModal)">
+                      <a class="dropdown-item text-warning" href="javascript: void(0);"
+                        (click)="onSelectTask(task);detailsModal(scrollDataModal)">
                         <span class="fa-stack">
                           <i class="fa fa-search-plus fa-stack-1x fa-inverse text-warning"></i>
                         </span> Details
 
 
                       </a>
-
-                    </div></div>
-
-
-
-
-
-
+                    </div>
+                  </div>
                   <div class="float-end ms-2">
                     <span class="badge rounded-pill badge-soft-secondary font-size-12" [ngClass]=" { 
                               'badge-soft-secondary': task.status=== 'UNSTARTED',
@@ -282,33 +261,6 @@
                     </div>
 
                   </div>
-                 <!--  <div class="card-body text-end ">
-
-
-                    <div class="float-end ms-2 btn-group btn-group-sm">
-
-                      <a class="table-link  text-warning" (click)="onSelectTask(task);detailsModal(scrollDataModal)">
-                        <span class="fa-stack">
-                          <i class="fa fa-square fa-stack-2x"></i>
-                          <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-                        </span>
-                      </a>
-                      <a class="table-link  text-info" (click)="onEditTask(task)">
-                        <span class="fa-stack">
-                          <i class="fa fa-square fa-stack-2x"></i>
-                          <i class="fa fa-pencil-alt fa-stack-1x fa-inverse"></i>
-                        </span>
-                      </a>
-
-                      <a class="table-link text-danger" (click)="onSelectTask(task);deleteMD(deleteModal)">
-                        <span class="fa-stack">
-                          <i class="fa fa-square fa-stack-2x"></i>
-                          <i class="fa fa-trash fa-stack-1x fa-inverse"></i>
-                        </span>
-                      </a>
-                    </div>
-                  </div>
- -->
 
 
                 </li>
@@ -387,7 +339,7 @@
       <div class="card-body">
         <div class="row">
           <div class="col-12 col-sm-auto ">
-            
+
           </div>
           <div class="col d-flex flex-column flex-sm-row justify-content-between ">
             <div class="text-left text-sm-left  mb-sm-0">
@@ -415,7 +367,7 @@
 
             <div class="text-center text-sm-right">
 
-              
+
 
               <div *ngIf="selectedTask.startdate" class="text-muted">
                 <small> Start Date :
@@ -432,15 +384,15 @@
                   {{selectedTask.enddate|date:'shortDate'
                   }}</small></div>
 
-                  <div *ngIf="selectedTask.createdate" class="text-muted">
-                    <small> Creation Date :
-                    </small>
-                  </div>
-                  <div *ngIf="selectedTask.createdate" class="text-muted">
-                    <small>
-                      {{selectedTask.createdate | date:'shortDate'
-                      }}</small>
-                  </div>
+              <div *ngIf="selectedTask.createdate" class="text-muted">
+                <small> Creation Date :
+                </small>
+              </div>
+              <div *ngIf="selectedTask.createdate" class="text-muted">
+                <small>
+                  {{selectedTask.createdate | date:'shortDate'
+                  }}</small>
+              </div>
               <div *ngIf="selectedTask.updatedate" class="text-muted"><small>Last Updated Date
                 </small></div>
               <div *ngIf="selectedTask.updatedate" class="text-muted"><small>
@@ -477,11 +429,11 @@
         <li class="list-group-item">
           <i class="fas fa-user-tie ">Affected TO : {{selectedTask.affectedTo.email}} </i>
         </li>
-       <!--  <li class="list-group-item">
+        <!--  <li class="list-group-item">
           <i class="fas fa-users "> Participants : </i>
         </li> -->
 
-       <!--  <div class="col-lg-7" id="cluster_info">
+        <!--  <div class="col-lg-7" id="cluster_info">
           <dl class="">
             <dd class="project-people">
               <a href="">{{selectedTask.affectedTo.firstname}}</a>
@@ -550,5 +502,3 @@
     </div>
   </div>
 </ng-template>
-
-

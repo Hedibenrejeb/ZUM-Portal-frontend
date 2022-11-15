@@ -29,29 +29,36 @@ export class ListComponent implements OnInit {
 
   submitted = false;
   formData: FormGroup;
-
   taskChart: ChartType;
-
   upcomingTasks: Tasklist[];
   inprogressTasks: Tasklist[];
   completedTasks: Tasklist[];
   myFiles = [];
- id:number;
 
-
-
+  id: number;
+ 
+  selectedId: number;
+  taskss = Task;
+  tasks: Task[];
   tasksInprogress: Task[];
   tasksCompleted: Task[];
   tasksUnstarted: Task[];
   tasksCancel: Task[];
 
+  
+
+
+
+
+  
+
 
   projectid:number;
   taskid:Task[]; 
   selectedProj:any;
-  public selectTask=new Task();
 
-  constructor(private modalService: NgbModal, private router:Router,private taskServ:TaskService,private projServ:ProjectService,private formBuilder: FormBuilder,private authServ:AuthenticationService,private activateRoute: ActivatedRoute) { }
+
+  constructor(private modalService: NgbModal, private taskServ:TaskService,private projServ:ProjectService,private formBuilder: FormBuilder,private authServ:AuthenticationService,private router: Router, private activateRoute: ActivatedRoute ) { }
 
   ngOnInit() {
     this.breadCrumbItems = [{ label: 'Tasks' }, { label: 'Task List', active: true }];
@@ -65,7 +72,9 @@ export class ListComponent implements OnInit {
 
     this._fetchData();
 
-
+    this.listtasks();
+    // this.getTasks();
+    this.gettTasks();
 
 
      //recupere project id
@@ -83,88 +92,25 @@ export class ListComponent implements OnInit {
      })
   }
 
- updateTask(i: number) {
-    this.id = i;
-    console.log("id of task selected ", this.id)
-    this.router.navigate(['/p/tasks/updateTask/', this.id])
-  }
-
-  onSelectTask(task:Task){
-    this.selectTask=task
-    console.log( "selected task ",this.selectTask.id)
-    //  this.detailTask(this.selectTask.id)
-  }
 
 
-
-
-   /**
-   * Open scroll modal
-   * @param scrollDataModal scroll modal data
-   */
-    detailsModal(scrollDataModal: any) {
-      this.modalService.open(scrollDataModal, { scrollable: true });
-    }
-
-
- 
-  
-detailTask(task:Task, scrollDataModal: any){
-  // this.selectTask=task
-
-  this.taskServ.taskByid(task.id).subscribe((task:Task)=>{
-    console.log("task details")
-    console.log(task)
-    this.selectTask=task
-    if(task.creator.firstname){
-     this.modalService.open(scrollDataModal, { scrollable: true });
-    }
-
-  }, (errorResponse: HttpErrorResponse) => {
-    console.log(errorResponse);
-  console.log(errorResponse.error.message);
-  })
-}
-
-
-
-
-
-
-
-
-  deleteMD(deleteDataModal: any) {
-    this.modalService.open(deleteDataModal, { size: 'lg', centered: true });
-  }
-
-  onDeleteTask(idtask:number){
-
-    console.log( "deleted task ",idtask)
-    console.log(idtask)
-    this.taskServ.deleteTask(idtask).subscribe(()=>{
-      this.getTasksbyIdProject(this.projectid);
-
-    console.log("delete succussfuly")
-  
-    this.clickButton('delete-close');
-
-
-    }, (errorResponse: HttpErrorResponse) => {
-      console.log(errorResponse);
-    console.log(errorResponse.error.message);
-    this.clickButton('delete-close');
-
-    })
-  }
-
-
-  
-  private clickButton(buttonId: string): void {
-    document.getElementById(buttonId).click();
-  }
 
 // for param Map
+listtasks = () => {
+  this.taskServ.allTask().subscribe(res => {
+    console.log(res['results']);
+  })
 
+}
+public gettTasks(): void {
+  this.taskServ.allTask().subscribe(
+    (response: Task[]) => {
+      this.tasks = response['results'];
+    }, (errorResponse: HttpErrorResponse) => {
+      console.log(errorResponse);
+    }
+  )
+}
 public getTasksbyIdProject(idproj:number){ this.taskServ.listTaskByProject(idproj).subscribe((response:Task[])=>{
   console.log("tasks by project")
   //console.log(response)
@@ -187,7 +133,7 @@ public getTasksbyIdProject(idproj:number){ this.taskServ.listTaskByProject(idpro
 ) }
 
 public getProjectById(id:number){
-  this.projServ.getProjectById(id).subscribe((response:Projet)=>{
+  this.projServ.getListProjectByUser(id).subscribe((response:Projet)=>{
     console.log("project from params")
   console.log(response)
   console.log("project from params")
@@ -197,7 +143,11 @@ public getProjectById(id:number){
 })
 }
 
-
+selectedTask(i: number) {
+  this.id = i;
+  console.log("id of task selected ", this.id)
+  this.router.navigate(['/p/tasks/updateTask/', this.id])
+}
 
 
 

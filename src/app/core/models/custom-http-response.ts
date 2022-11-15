@@ -1,5 +1,4 @@
 export interface CustomHttpResponse{
-     httpStatusCode :number;
-     httpStatus :string;
- 
+    httpStatusCode :number;
+    httpStatus :string;
 }

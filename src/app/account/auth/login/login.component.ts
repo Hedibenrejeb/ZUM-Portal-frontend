@@ -12,7 +12,6 @@ import { Subscription } from 'rxjs';
 import { User } from 'src/app/core/models/auth.models';
 
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { ProjectService } from 'src/app/core/services/project.service';
 
 @Component({
   selector: 'app-login',
@@ -34,8 +33,9 @@ export class LoginComponent implements OnInit {
   see= false ;
   // set the currenr year
   year: number = new Date().getFullYear();
+  tasks:any[];
   users:User[];
-  projects:any[];
+
   // tslint:disable-next-line: max-line-length
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService,
     private authFackservice: AuthfakeauthenticationService) { }
@@ -55,9 +55,12 @@ export class LoginComponent implements OnInit {
     // tslint:disable-next-line: no-string-literal
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     if(this.authenticationService.isLoggedIn()){
-      this.router.navigateByUrl('/p/dashboards/default');
+      console.log('testing')
+      this.router.navigateByUrl(`/p/dashboards/default`);
     
     }else {
+      console.log("err");
+      
       this.router.navigateByUrl('/login');
     }
 
@@ -81,7 +84,7 @@ export class LoginComponent implements OnInit {
 
 
 
-  onLogin(user:User):void {
+   onLogin(user:User):void {
     this.submitted = true;
     // console.log(user)
     this.pass=user['password']
@@ -128,6 +131,28 @@ export class LoginComponent implements OnInit {
     } 
    
    
+
+
+
+
+   /*  public getTasks(): void {
+      this.authenticationService.listTask().subscribe(
+        (response: Task[]) => {
+  
+          console.log("tasks");
+          this.tasks = response;
+          console.log(this.tasks)
+  
+        }, (errorResponse: HttpErrorResponse) => {
+          console.log(errorResponse);
+        }
+      )
+      
+    } */
+   
+   
+
+
 
 
 

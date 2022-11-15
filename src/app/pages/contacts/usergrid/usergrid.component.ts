@@ -8,14 +8,17 @@ import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Usergrid } from './usergrid.model';
 import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { ProjectService } from 'src/app/core/services/project.service';
+
+
 @Component({
   selector: 'app-usergrid',
   templateUrl: './usergrid.component.html',
   styleUrls: ['./usergrid.component.scss']
 })
+
 /**
-* Contacts user grid component
-*/
+ * Contacts user grid component
+ */
 export class UsergridComponent implements OnInit {
   private subscriptions: Subscription[] = [];
   pass = '';
@@ -40,15 +43,20 @@ export class UsergridComponent implements OnInit {
   userForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     role: ['MG', [Validators.required]],
+
   });
+
+
   constructor(private UserProfileService: UserProfileService, private modalService: NgbModal,
     private formBuilder: FormBuilder, private projectService: ProjectService, private authServ: AuthenticationService) {
+
     this.formproject = new FormGroup({
       name: new FormControl('', [Validators.required]),
       starter_at: new FormControl('', [Validators.required]),
       end_date: new FormControl('', [Validators.required]),
     });
   }
+
   ngOnInit() {
     this.loggedUser = this.authServ.getUserFromLocalCache().role;
     console.log('this.loggedUser', this.loggedUser);
@@ -60,6 +68,8 @@ export class UsergridComponent implements OnInit {
     this.getallusers();
     this.getAllProject();
   }
+
+
   getAllProject() {
     this.projectService.getAll().subscribe(result => {
       this.projects = result.results;
@@ -68,16 +78,23 @@ export class UsergridComponent implements OnInit {
       }
     });
   }
+
+
   onSubmit() {
     this.submitted = true
   }
+
   get f() { return this.newUserForm.controls; }
+
+
   openModal(content: any) {
     this.modalService.open(content);
   }
+
   private _fetchData() {
     this.userGridData = this.listUser;
   }
+
   public onAddNewUser(newUserForm: User): void {
     this.user = newUserForm;
     this.submitted = true;
@@ -98,20 +115,27 @@ export class UsergridComponent implements OnInit {
       )
     );
   }
+
   private clickButton(buttonId: string): void {
     document.getElementById(buttonId).click();
   }
+
+
+
   public saveNewTask(): void {
     this.clickButton('new-user-save');
     this.clickButton('add-user-close');
   }
+
   openModalProject(template: TemplateRef<any>) {
     this.modalService.open(template, { size: 'lg' });
   }
+
   openProjectModal(template: TemplateRef<any>, userId) {
     this.openModalProject(template);
     this.getListProjectByUser(userId);
   }
+
   public getListProjectByUser(userId: any) {
     console.log('userId', userId)
     this.projectService.getListProjectByUser(userId).subscribe(result => {
@@ -119,10 +143,13 @@ export class UsergridComponent implements OnInit {
       console.log('this.listProject', this.listProject);
     });
   }
+
+
   /**
   * Open modal
   * @param content modal content
   */
+
   getallusers() {
     this.UserProfileService.getallusers().subscribe(
       data => {

@@ -156,14 +156,10 @@ export class CreateComponent implements OnInit {
     let d1,d2;
     d1=this.dateProject[0];
     d2=this.dateProject[1];
-    console.log(d1, d2 )
     let date1 =d1.split("/",3) //[19 ,10, 2022 ]
     let date2 =d2.split("/",3)
-   
-    d1 = date1[1] +"/" + date1[0]  +"/" + date1[2]
-    d2 = date2[1] +"/" + date2[0]  +"/" + date2[2]
-    let start=formatDate(d1,'yyyy-MM-dd','en_US')
-    let end=formatDate(d2,'yyyy-MM-dd','en_US')
+    let start=formatDate(date1,'yyyy-MM-dd','en_US')
+    let end=formatDate(date2,'yyyy-MM-dd','en_US')
     this.addProject.starter_at=start;
     this.addProject.end_date=end;
   }

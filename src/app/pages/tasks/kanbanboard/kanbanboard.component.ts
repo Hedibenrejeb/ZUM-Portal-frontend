@@ -41,30 +41,23 @@ userActuel:User;
   completedTasks: Taskk[];
   // bread crumb items
   breadCrumbItems: Array<{}>;
-  id:number;
-  constructor(private taskServ:TaskService,private projServ:ProjectService,private router:Router,private authServ:AuthenticationService,private modalService: NgbModal,private activateRoute: ActivatedRoute) { }
+id:number;
+  constructor(private taskServ:TaskService,private router:Router, private projServ:ProjectService,private authServ:AuthenticationService,private modalService: NgbModal,private activateRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.userActuel=this.authServ.getUserFromLocalCache();
+    console.log(this.userActuel)
     this.getTasks();
       
   }
 
-
-
-  
   public getTasks(): void {
     this.taskServ.listTask().subscribe(
       (response:Task[]) => {
            console.log("refresh after delete")
-         console.log(response)
-         console.log(this.userActuel.id)
-         console.log(response.filter(t=>t.affectedTo.id==this.userActuel.id))
-
-         this.tasks=response.filter(t=>t.affectedTo.id==this.userActuel.id);
-        console.log(this.tasks)
-        if(this.tasks){
-
+   console.log(response)
+           this.tasks=response.filter(t=>t.affectedTo.id==this.userActuel.id);
+           console.log(this.tasks) 
          this.tasksInprogress=this.tasks.filter(t=>t.status=="INPROGRESS");
          this.tasksCompleted=this.tasks.filter(t=>t.status=="COMPLETED");
          this.tasksUnstarted=this.tasks.filter(t=>t.status=="UNSTARTED");
@@ -73,7 +66,7 @@ userActuel:User;
          console.log("tasks Progress",this.tasksInprogress )
          console.log("tasks completed",this.tasksCompleted )
          console.log("tasks unstarted",this.tasksUnstarted )
-         console.log("tasks cancel",this.tasksCancel )  } 
+         console.log("tasks cancel",this.tasksCancel )   
            
       }, (errorResponse: HttpErrorResponse) => {
         console.log(errorResponse);
@@ -91,14 +84,11 @@ userActuel:User;
     console.log( "selected task ",this.selectedTask)
   }
   onEditTask(task:Task){
-      this.id = task.id;
-      console.log("id of task selected ", this.id)
-      this.router.navigate(['/p/tasks/updateTask/', this.id])
-    
-  
-    console.log("on edit task ")
-
-  }
+    this.id = task.id;
+    console.log("id of task selected ", this.id)
+    this.router.navigate(['/p/tasks/updateTask/', this.id])
+  console.log("on edit task ")
+}
    /**
    * Open scroll modal
    * @param scrollDataModal scroll modal data
@@ -107,7 +97,7 @@ userActuel:User;
       this.modalService.open(scrollDataModal, { scrollable: true });
     }
 
-    
+
   deleteMD(deleteDataModal: any) {
     this.modalService.open(deleteDataModal, { size: 'lg', centered: true });
   }
@@ -115,9 +105,7 @@ userActuel:User;
   onDeleteTask(idtask:number){
 
     console.log( "deleted task ",idtask)
-    console.log(this.selectedTask.creator.id)
     console.log(idtask)
-    if(this.selectedTask.creator.id==this.userActuel.id){
     this.taskServ.deleteTask(idtask).subscribe(()=>{
     this.getTasks();
 
@@ -131,9 +119,7 @@ userActuel:User;
     console.log(errorResponse.error.message);
     this.clickButton('delete-close');
 
-    })}else{console.log("you don't have permissions")
-    this.clickButton('delete-close');
-  }
+    })
 
 
   }
@@ -142,6 +128,14 @@ userActuel:User;
   private clickButton(buttonId: string): void {
     document.getElementById(buttonId).click();
   }
+
+
+
+
+
+
+
+
 
 
 

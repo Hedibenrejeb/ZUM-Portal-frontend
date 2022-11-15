@@ -43,8 +43,8 @@ public updateTask(id:number,task:Task):Observable<Task>{
 public deleteTask(id:number) {
   return this.http.delete(`${this.host}/task/delete/${id}`);
 }
-
-public taskByid(id:number):Observable<Task>{
-  return this.http.get<Task>(`${this.host}/task/getTask/${id}`);
+public allTask():Observable<Task[]>{
+  return this.http.get<Task[]>(`${this.host}/task/listask/`);
 }
+
 }

@@ -35,12 +35,8 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-
       console.log("params", params['id'])
-
       this.userid = params['id']
-
-
 
     })
 
@@ -55,13 +51,6 @@ export class SignupComponent implements OnInit {
     this.submitted = false
   }
 
-    // this.signupForm = this.formBuilder.group({
-    //   firstname: ['', Validators.required],
-    //   lastname: ['', Validators.required],
-    //   email: ['', [Validators.required, Validators.email]],
-    //   password: ['', Validators.required],
-    // });}
-  
 
   // convenience getter for easy access to form fields
   get f() { return this.signupForm.controls; }
@@ -69,9 +58,6 @@ export class SignupComponent implements OnInit {
   /**
    * On submit form
    */
-
-
-
 
    onSubmit() {
     this.submitted = true;
@@ -104,80 +90,3 @@ export class SignupComponent implements OnInit {
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-  //  onSubmit(user):void {
-  //   this.submitted = true;
-  //   console.log(user)
-  //   // stop here if form is invalid
-  //   if (this.signupForm.invalid) {
-  //     return;
-  //   } else {
-  //     this.subscriptions.push(
-  //       this.authenticationService.addUser(user).subscribe(
-  //         (response:User)=>{
-  //           console.log(response);
-  //           console.log(`${response['firstname']}user added` )
-         
-  //     this.router.navigateByUrl('/p')
-
-  //     this.submitted=false;
-  //   },(errorResponse:HttpErrorResponse)=>{
-  //     this.error='Invalid credentials, try again '
-  //   console.log(errorResponse);
-  //   //this.sendErrorNotification(NotificationType.ERROR,errorResponse.error.message);
-  //   this.submitted=false;
-  //   }
-  //   ));}}
-
-
-
-
-
-
-
-
-
-
-  /* onSubmit() {
-    this.submitted = true;
-
-    // stop here if form is invalid
-    if (this.signupForm.invalid) {
-      return;
-    } else {
-      if (environment.defaultauth === 'firebase') {
-        this.authenticationService.register(this.f.email.value, this.f.password.value).then((res: any) => {
-          this.successmsg = true;
-          if (this.successmsg) {
-            this.router.navigate(['/dashboard']);
-          }
-        })
-          .catch(error => {
-            this.error = error ? error : '';
-          });
-      } else {
-        this.userService.register(this.signupForm.value)
-          .pipe(first())
-          .subscribe(
-            data => {
-              this.successmsg = true;
-              if (this.successmsg) {
-                this.router.navigate(['/account/login']);
-              }
-            },
-            error => {
-              this.error = error ? error : '';
-            });
-      }
-    }
-  }} */
-

@@ -249,30 +249,30 @@ export const MENU: MenuItem[] = [
         label: 'MENUITEMS.PROJECTS.TEXT',
         icon: 'bx-briefcase-alt-2',
         subItems: [
-          /*   {
-                id: 40,
-                label: 'MENUITEMS.PROJECTS.LIST.GRID',
-                link: '/p/projects/grid',
-                parentId: 38
-            }, */
+            // {
+            //     id: 40,
+            //     label: 'MENUITEMS.PROJECTS.LIST.GRID',
+            //     link: '/p/projects/grid',
+            //     parentId: 38
+            // },
             {
                 id: 41,
                 label: 'MENUITEMS.PROJECTS.LIST.PROJECTLIST',
                 link: '/p/projects/list',
                 parentId: 38
-            }/* ,
-            {
-                id: 42,
-                label: 'MENUITEMS.PROJECTS.LIST.OVERVIEW',
-                link: '/p/projects/overview',
-                parentId: 38
             },
-            {
-                id: 43,
-                label: 'MENUITEMS.PROJECTS.LIST.CREATE',
-                link: '/p/projects/create',
-                parentId: 38
-            } */
+            // {
+            //     id: 42,
+            //     label: 'MENUITEMS.PROJECTS.LIST.OVERVIEW',
+            //     link: '/p/projects/overview',
+            //     parentId: 38
+            // },
+            // {
+            //     id: 43,
+            //     label: 'MENUITEMS.PROJECTS.LIST.CREATE',
+            //     link: '/p/projects/create',
+            //     parentId: 38
+            // }
         ]
     },
     {
@@ -280,15 +280,12 @@ export const MENU: MenuItem[] = [
         label: 'MENUITEMS.TASKS.TEXT',
         icon: 'bx-task',
         subItems: [
-        
-
-         /*    {
+/*             {
                 id: 45,
                 label: 'MENUITEMS.TASKS.LIST.TASKLIST',
-                link: '/p/tasks/listTasks',
+                link: '/p/tasks/list',
                 parentId: 44
-            },     */      
-
+            }, */
             {
                 id: 46,
                 label: 'MENUITEMS.TASKS.LIST.KANBAN',
@@ -313,19 +310,19 @@ export const MENU: MenuItem[] = [
                 label: 'MENUITEMS.CONTACTS.LIST.USERGRID',
                 link: '/p/contacts/grid',
                 parentId: 48
-            }
-           /* , {
-                id: 50,
-                label: 'MENUITEMS.CONTACTS.LIST.USERLIST',
-                link: '/p/contacts/list',
-                parentId: 48
             },
+            // {
+            //     id: 50,
+            //     label: 'MENUITEMS.CONTACTS.LIST.USERLIST',
+            //     link: '/p/contacts/list',
+            //     parentId: 48
+            // },
             {
                 id: 51,
                 label: 'MENUITEMS.CONTACTS.LIST.PROFILE',
                 link: '/p/contacts/profile',
                 parentId: 48
-            } */
+            }
         ]
     },
    /*  {
@@ -510,8 +507,8 @@ export const MENU: MenuItem[] = [
         id: 80,
         label: 'MENUITEMS.COMPONENTS.TEXT',
         isTitle: true
-    }, */
-    /* {
+    },
+    {
         id: 81,
         label: 'MENUITEMS.UIELEMENTS.TEXT',
         icon: 'bx-tone',
@@ -519,119 +516,119 @@ export const MENU: MenuItem[] = [
             {
                 id: 82,
                 label: 'MENUITEMS.UIELEMENTS.LIST.ALERTS',
-                link: '/p/ui/alerts',
+                link: '/ui/alerts',
                 parentId: 81
             },
             {
                 id: 83,
                 label: 'MENUITEMS.UIELEMENTS.LIST.BUTTONS',
-                link: '/p/ui/buttons',
+                link: '/ui/buttons',
                 parentId: 81
             },
             {
                 id: 84,
                 label: 'MENUITEMS.UIELEMENTS.LIST.CARDS',
-                link: '/p/ui/cards',
+                link: '/ui/cards',
                 parentId: 81
             },
             {
                 id: 85,
                 label: 'MENUITEMS.UIELEMENTS.LIST.CAROUSEL',
-                link: '/p/ui/carousel',
+                link: '/ui/carousel',
                 parentId: 81
             },
             {
                 id: 86,
                 label: 'MENUITEMS.UIELEMENTS.LIST.DROPDOWNS',
-                link: '/p/ui/dropdowns',
+                link: '/ui/dropdowns',
                 parentId: 81
             },
             {
                 id: 87,
                 label: 'MENUITEMS.UIELEMENTS.LIST.GRID',
-                link: '/p/ui/grid',
+                link: '/ui/grid',
                 parentId: 81
             },
             {
                 id: 88,
                 label: 'MENUITEMS.UIELEMENTS.LIST.IMAGES',
-                link: '/p/ui/images',
+                link: '/ui/images',
                 parentId: 81
             },
             {
                 id: 88,
                 label: 'MENUITEMS.UIELEMENTS.LIST.LIGHTBOX',
-                link: '/p/ui/lightbox',
+                link: '/ui/lightbox',
                 parentId: 81
             },
             {
                 id: 89,
                 label: 'MENUITEMS.UIELEMENTS.LIST.MODALS',
-                link: '/p/ui/modals',
+                link: '/ui/modals',
                 parentId: 81
             },
             {
                 id: 90,
                 label: 'MENUITEMS.UIELEMENTS.LIST.RANGESLIDER',
-                link: '/p/ui/rangeslider',
+                link: '/ui/rangeslider',
                 parentId: 81
             },
             {
                 id: 91,
                 label: 'MENUITEMS.UIELEMENTS.LIST.PROGRESSBAR',
-                link: '/p/ui/progressbar',
+                link: '/ui/progressbar',
                 parentId: 81
             },
             {
                 id: 92,
                 label: 'MENUITEMS.UIELEMENTS.LIST.PLACEHOLDER',
-                link: '/p/ui/placeholder',
+                link: '/ui/placeholder',
                 parentId: 81
             },
             {
                 id: 93,
                 label: 'MENUITEMS.UIELEMENTS.LIST.SWEETALERT',
-                link: '/p/ui/sweet-alert',
+                link: '/ui/sweet-alert',
                 parentId: 81
             },
             {
                 id: 94,
                 label: 'MENUITEMS.UIELEMENTS.LIST.TABS',
-                link: '/p/ui/tabs-accordions',
+                link: '/ui/tabs-accordions',
                 parentId: 81
             },
             {
                 id: 95,
                 label: 'MENUITEMS.UIELEMENTS.LIST.TYPOGRAPHY',
-                link: '/p/ui/typography',
+                link: '/ui/typography',
                 parentId: 81
             },
             {
                 id: 96,
                 label: 'MENUITEMS.UIELEMENTS.LIST.VIDEO',
-                link: '/p/ui/video',
+                link: '/ui/video',
                 parentId: 81
             },
             {
                 id: 97,
                 label: 'MENUITEMS.UIELEMENTS.LIST.GENERAL',
-                link: '/p/ui/general',
+                link: '/ui/general',
                 parentId: 81
             },
             {
                 id: 98,
                 label: 'MENUITEMS.UIELEMENTS.LIST.COLORS',
-                link: '/p/ui/colors',
+                link: '/ui/colors',
                 parentId: 81
             },
             {
                 id: 99,
                 label: 'MENUITEMS.UIELEMENTS.LIST.CROPPER',
-                link: '/p/ui/image-crop',
+                link: '/ui/image-crop',
                 parentId: 81
             },
         ]
-    }, *//*
+    },
     {
         id: 100,
         label: 'MENUITEMS.FORMS.TEXT',
@@ -822,5 +819,4 @@ export const MENU: MenuItem[] = [
         ]
     } */
 ];
-
 
