@@ -1,0 +1,134 @@
+<div class="container-fluid">
+    <!-- start page title -->
+    <app-page-title title="Update Task" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <!-- end page title -->
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title mb-4">Update Task</h4>
+            <form class="outer-repeater" #updateTaskForm="ngForm" (ngSubmit)="updateNewTask(updateTaskForm.value)">
+              <div data-repeater-list="outer-group" class="outer">
+                <div data-repeater-item class="outer">
+                  <div class="row mb-4">
+                    <label for="task" class="col-form-label col-lg-2">Task Name</label>
+                    <div class="col-lg-10">
+                      <input id="task" name="task" type="text" class="form-control" [(ngModel)]="updateTask.name">
+                    </div>
+                  </div>
+                  <div class="row mb-4">
+                    <label class="col-form-label col-lg-2">Task Description</label>
+                    <div class="col-lg-10">
+                      <input id="taskdescription" name="taskdescription" type="text" class="form-control"
+                        [(ngModel)]="updateTask.description">
+                    </div>
+                  </div>
+                  <!-- <div class="inner-repeater mb-4"> -->
+                  <div class="row mb-4">
+                    <label class="col-form-label col-lg-2">Affected To</label>
+                    <div class="col-lg-10">
+                      <!-- <input id="taskaffected" name="taskaffected" type="text" class="form-control"
+                        [(ngModel)]="updateTask.affectedTo.email" readonly> -->
+  
+                      <select name="taskaffected" required [(ngModel)]="updateTask.affectedTo" type="text"
+                        class="form-control">
+                       <!--  <option [ngValue]=updateTask.affectedTo selected>{{updateTask.affectedTo.email}}
+                        </option> -->
+  
+                        <!-- <option *ngFor="let member of members"   [ngValue]= member.firstname >{{member.firstname}} </option>  -->
+                        <option *ngFor="let member of members" [ngValue]="member">{{member.email}} </option>
+                      </select> 
+                    </div>
+  
+  
+                  </div>
+  
+                  <div class="row mb-4">
+                    <label for="selected" class="col-form-label col-lg-2">Task Date</label>
+                    <div class="col-lg-10">
+                      <ng-template #t let-date let-focused="focused">
+                        <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+                          [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
+                          (mouseleave)="hoveredDate = null">
+                          {{ date.day }}
+                        </span>
+                      </ng-template>
+                      <input type="text" class="form-control date" (click)="hidden=!hidden" name="daterange"
+                        autocomplete="off" required name="selected" [(ngModel)]="selected" />
+                      <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t"
+                        outsideDays="hidden" [hidden]="hidden">
+                      </ngb-datepicker>
+                    </div>
+  
+                  </div>
+                  <!-- <div class="inner col-lg-10 ms-md-auto" *ngFor="let data of member.controls; index as i;">
+                            <div class="mb-3 row align-items-center">
+                              <div class="col-md-6">
+                                <input type="text" [formControlName]="i" class="inner form-control" />
+                              </div>
+                              <div class="col-md-4">
+                               <div class="mt-4 mt-md-0">
+                                  <input class="form-control" type="file">
+                                </div> -->
+                  <!-- </div> -->
+                  <!-- <div class="col-md-2">
+                                <div class="mt-2 mt-md-0 d-grid">
+                                  <input type="button" class="btn btn-primary inner" value="Delete"
+                                    (click)="deleteMember(i)" />
+                                </div>
+                              </div> -->
+                  <!-- </div>
+                          </div> 
+                      </div>  -->
+                </div>
+                <!-- <div class="row justify-content-end">
+                        <div class="col-lg-10">
+                          <input data-repeater-create type="button" class="btn btn-success inner" value="Add Member"
+                            /> {{Task.affectedTo}}
+                        </div>
+                      </div> -->
+              </div>
+              <div class="row mb-4">
+                <label for="project" class="col-form-label col-lg-2">Project</label>
+                <div class="col-lg-10">
+                  <!-- <input id="taskproject" name="taskproject" type="text" class="form-control"
+                    [(ngModel)]="updateTask.project.name" readonly> -->
+                  <select name="project" required [(ngModel)]="updateTask.project" type="text" class="form-control">
+                    <!-- <option [ngValue]=updateTask.project.name selected>{{updateTask.project.name}} </option> -->
+  
+                    <option *ngFor="let projet of projects" [ngValue]=projet>{{projet.name}} </option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <label class="col-form-label col-lg-2">Task status</label>
+                <div class="col-lg-10">
+                  <!-- <input id="taskstatus" name="taskstatus" type="text" class="form-control"
+                    [(ngModel)]="updateTask.status"> -->
+                  <select name="taskstatus" required [(ngModel)]="updateTask.status" type="text" class="form-control">
+                    <option [ngValue]=updateTask.status selected>{{updateTask.status}} </option>
+                    <option value="INPROGRESS"> IN PROGRESS
+                    </option>
+                    <option value="COMPLETED">COMPLETED
+                    </option>
+                    <option value="UNSTARTED">UNSTARTED
+                    </option>
+                    <option value="CANCEL">CANCEL
+                    </option>
+                  </select>
+  
+                </div>
+              </div>
+              <div class="row justify-content-end">
+                <div class="col-lg-10">
+                  <button type="submit" class="btn btn-primary">Update Task</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end row -->
+  
+    <!-- </div> container-fluid -->

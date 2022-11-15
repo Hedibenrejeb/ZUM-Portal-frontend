@@ -1,0 +1,130 @@
+<div class="container-fluid">
+
+  <!-- start page title -->
+  <app-page-title title="Create Task" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <!-- end page title -->
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title mb-4">Create New Task</h4>
+          <form class="outer-repeater" #newTaskForm="ngForm" (ngSubmit)="addNewTask(newTaskForm.value)" >
+            <div data-repeater-list="outer-group" class="outer">
+              <div data-repeater-item class="outer">
+                <div class="row mb-4   ">
+                  <label for="name" class="col-form-label col-lg-2">Task Name</label>
+                  <div class="col-lg-10">
+                    <input id="name" name="name" type="text" required ngModel  class="form-control"
+                      placeholder="Enter Task Name...">
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <label for="description" class="col-form-label col-lg-2">Task Description</label>
+                  <div class="col-lg-10">
+                    <ckeditor [editor]="Editor" name="description" required [(ngModel)]="description"  class="form-control"  ></ckeditor>
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <label for="selected" class="col-form-label col-lg-2">Task Date</label>
+                  <div class="col-lg-10">
+                    <ng-template #t let-date let-focused="focused">
+                      <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+                        [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
+                        (mouseleave)="hoveredDate = null">
+                        {{ date.day }}
+                      </span>
+                    </ng-template>
+
+                    <input type="text" class="form-control date" (click)="hidden=!hidden" name="daterange"
+                      autocomplete="off" required name="selected" [(ngModel)]="selected" />
+
+                    <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t"
+                      outsideDays="hidden" [hidden]="hidden">
+                    </ngb-datepicker>
+                  </div>
+                </div>
+                <div class="row mb-4">
+                  <label for="project" class="col-form-label col-lg-2">Add Project</label>
+                  <div class="col-lg-10">
+                    <select name="project" required [(ngModel)]="project" (change)="selectedProject(project)" class="form-control">
+
+                      <option *ngFor="let projet of projects" [ngValue]=projet>{{projet.name}} </option>
+
+                    </select>
+                  </div>
+                </div>
+                <!-- {{projet.assigned_to[0].id}} -->
+
+                <div class="row mb-4">
+                  <label for="status" class="col-form-label col-lg-2">Task Status</label>
+                  <div class="col-lg-10">
+                    <select name="status" required ngModel="UNSTARTED" class="form-control">
+
+                      <option value="INPROGRESS"> IN PROGRESS</option>
+                      <option value="COMPLETED">COMPLETED
+                      </option>
+                      <option value="UNSTARTED">UNSTARTED
+                      </option>
+                      <option value="CANCEL">CANCEL
+                      </option>
+
+                    </select>
+                  </div>
+                </div>
+              
+                <div class="row mb-4"  [hidden]="!isManager" >
+                  <label for="affectedTo" class="col-form-label col-lg-2">Add Team Member</label>
+                  <div class="col-lg-10" >
+                    <select name="affectedTo" [disabled]="disablemember" required [(ngModel)]="affectedTo" class="form-control">
+
+                      <option *ngFor="let member of members" [ngValue]=member>{{member.email}}</option>
+
+                    </select>
+                  </div>
+                </div>
+
+
+                <div class="row mb-4" [hidden]="isManager"  >
+                  <div [hidden]="true">
+                  <label for="affectedTo" class="col-form-label col-lg-2">Add Team Member</label>
+                  <div class="col-lg-10">
+                    <input  type="text" name="affectedTo" required [(ngModel)]="userActuel"
+                    class="form-control">  <h5> {{userActuel.firstname}}</h5>
+                  </div>
+                  </div>
+                </div>
+
+
+
+
+
+
+
+              </div>
+            </div>
+
+            <div class="form-group" [hidden]="true">
+              <label for="creator">Created by</label>
+              <h5> {{userActuel.firstname}}</h5>
+
+              <input [hidden]="true" type="text" name="creator" required [(ngModel)]="userActuel"
+                  class="form-control">
+          </div>
+
+          <div class="row justify-content-end">
+            <div class="col-lg-10">
+              <button type="submit" class="btn btn-primary">Create Task</button>
+            </div>
+          </div>
+          </form>
+         
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end row -->
+
+</div> <!-- container-fluid -->

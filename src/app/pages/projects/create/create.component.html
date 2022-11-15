@@ -1,0 +1,81 @@
+<div class="container-fluid">
+  <!-- start page title -->
+  <!-- <app-page-title title="Create New" [breadcrumbItems]="breadCrumbItems"></app-page-title> -->
+  <!-- end page title -->
+  <br />
+  <br />
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card  shadow-lg p-3 mb-5 bg-white rounded ">
+        <div class="card-body">
+          <h4 class="card-title mb-4">Create New Project</h4>
+          <form class="needs-validation" name="formCreate" [formGroup]="formCreate" (ngSubmit)="save()" novalidate>
+            <ngb-alert type="success" *ngIf="successmsg" [dismissible]="false">creation successfull.
+            </ngb-alert>
+            <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
+            <div class="row mb-4">
+              <label for="project_name" class="col-form-label col-lg-2">Project Name</label>
+              <div class="col-lg-10">
+                <input id="project_name" name="projectname" formControlName="project_name" type="text"
+                  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.project_name.errors }"
+                  placeholder="Enter Project Name...">
+              </div>
+              <div *ngIf="submitted && f.project_name.errors" class="invalid-feedback">
+                <div *ngIf="f.project_name.errors.required">Project_name is required</div>
+                <div *ngIf="f.project_name.errors.pattern">This value should be a valid name</div>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <label for="project_description" class="col-form-label col-lg-2">Project Description</label>
+              <div class="col-lg-10">
+                <textarea class="form-control" formControlName="project_description"
+                  [ngClass]="{ 'is-invalid': submitted && f.project_description.errors }" id="project_description"
+                  rows="3" placeholder="Enter Project Description..."></textarea>
+              </div>
+              <div *ngIf="submitted && f.project_description.errors" class="invalid-feedback">
+                <div *ngIf="f.project_description.errors.required">Project_name is required</div>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <label for="selected" class="col-form-label col-lg-2">Project Date</label>
+              <div class="col-lg-10">
+                <ng-template #t let-date let-focused="focused">
+                  <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+                    [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
+                    (mouseleave)="hoveredDate = null">
+                    {{ date.day }}
+                  </span>
+                </ng-template>
+                  <input type="text" class="form-control date" (click)="hidden=!hidden" name="daterange"
+                  autocomplete="off" formControlName="selected" [(ngModel)]="selected" />
+                <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t"
+                  outsideDays="hidden" [hidden]="hidden">
+                </ngb-datepicker>
+              </div>
+            </div>
+            <div class="row mb-4">
+              <label for="assigned_to" class="col-form-label col-lg-2">Assigned To</label>
+              <div class="col-lg-10">
+                  <ng-select [items]="selectValue" bindLabel="email" [multiple]="true" id="assigned_to" 
+                  name="assigned_to"
+                  formControlName="assigned_to" type="text" class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.assigned_to.errors }"
+                  placeholder="Choose a users assigned_to..."></ng-select>
+                </div>
+              <div *ngIf="submitted && f.assigned_to.errors" class="invalid-feedback">
+                <div *ngIf="f.assigned_to.errors.required">assigned_to is required</div>
+                <div *ngIf="f.assigned_to.errors.pattern">This value should be a valid name</div>
+              </div>
+            </div>
+            <div class="row justify-content-end">
+              <div class="col-lg-10">
+                <button type="submit" class="btn btn-primary">Create Project</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end row -->
+</div> <!-- container-fluid -->

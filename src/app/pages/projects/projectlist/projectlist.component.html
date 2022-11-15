@@ -1,0 +1,204 @@
+<div class="container-fluid">
+  <app-page-title title="Projects List" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+
+  <div class="row">
+    <div class="d-flex" *ngIf="this.loggedUser === 'MG'">
+      <button class="btn btn-success ms-auto mb-2"  [routerLink]="'/p/projects/create'">Add Project </button>
+    </div>
+    <div class="col-lg-12">
+      <div class>
+        <div class="table-responsive">
+          <table class=" table project-list-table
+            table-nowrap align-middle table-borderless">
+            <thead class="table-light" >
+              <tr>
+                <th scope="col"> Project Name</th>
+                <th scope="col">CreatedBy</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Status</th>
+                <!-- <th scope="col">Team</th> -->
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let project of projects">
+                <td>
+                  <p class="text-muted mb-0 text-truncate font-size-14">{{project.name}}</p>
+                </td>
+
+                <td>
+                  <p class="text-muted mb-0 text-truncate font-size-14" *ngIf="project.created_by">
+                    {{project.created_by.firstname}}
+                    {{project.created_by.lastname}}</p>
+                </td>
+
+                <td>
+                  <p class="text-muted mb-0 text-truncate font-size-14">{{project.starter_at| date:'longDate'}}</p>
+                </td>
+
+                <td>
+                  <p class="text-muted mb-0 text-truncate font-size-14">{{project.end_date| date:'longDate'}}</p>
+                </td>
+                <td>
+                  <p class="badge" [ngClass]="{'bg-success': project.status === 'completed','bg-info': project.status === 'active',
+                  'bg-warning': project.status === 'suspended',
+                  'bg-danger': project.status === 'paused' }">{{project.status}}</p>
+                </td>
+                <td>
+                  <h5 class="text-truncate font-size-14">
+                    <!-- <button  style="width: 40px;" class="fa-stack "><i class="fa fa-tasks fa-stack-1x fa-inverse"></i></button>
+                    &nbsp; -->
+                    <button class="btn btn-warning" *ngIf="this.loggedUser === 'MG'" style="width: 40px;" (click)="tasksbyProject(project)"><i class="fas fa-tasks"></i></button>
+                     &nbsp;
+                    <button  *ngIf="this.loggedUser === 'MG'" tooltip="Modifier" (click)="openUpdateModal(updatetemplate, project)"
+                      class="btn btn-success" style="width: 40px;"><i class="fas fa-edit"></i></button>
+                    &nbsp;
+                    <button style="width: 40px;" (click)="openDetailModal(detailemplate, project)" class="btn btn-info"><i
+                      class="fas fa-info"></i></button>
+                    &nbsp;
+                    <button *ngIf="this.loggedUser === 'MG'" class="btn btn-danger" tooltip="Delete" (click)="openDeleteModal(confirmDelete, project)"
+                      style="width: 40px;"><i title="Delete" class="fa fa-trash"></i></button>
+                  </h5>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <!-- end row -->
+  <!-- <ngb-pagination class="d-flex justify-content-end" [collectionSize]="40" [(page)]="alignpage1">
+  </ngb-pagination> -->
+  <!-- end row -->
+</div>
+
+
+<!-- ////*****************************************updatemodal*******************************************************************/////////////// -->
+<ng-template #updatetemplate let-modal>
+  <form class="form-horizontal offset-md-2" [formGroup]="formUpdate">
+    <div class="modal-header">
+      <h3 class="modal-title pull-left">Update Project </h3>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <div class="col-sm-4 pull-left">
+          <label class="control-label">Project Name *</label>
+        </div>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="project_name"
+            [ngClass]="{ 'is-invalid': submitted && f.project_name.errors }" id="name" rows="3">
+          <div *ngIf="submitted && f.project_name.errors" class="invalid-feedback">
+            <div *ngIf="f.project_name.errors.required">Project_name is required</div>
+            <div *ngIf="f.project_name.errors.pattern">This value should be a valid name</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-4 pull-left">
+          <label class="control-label">status *</label>
+        </div>
+        <div class="col-sm-8 pull-left">
+          <div class="col-sm-8" class="form-control">
+            <ng-select [items]="statusValue" formControlName="status" id="statut" name="statut"></ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-4 pull-left">
+          <label class="control-label">Team*</label>
+        </div>
+        <div class="col-sm-8 pull-left">
+            <ng-select [items]="selectValue" bindLabel="email" [multiple]="true" id="assigned_to" name="assigned_to"
+              formControlName="assigned_to" type="text" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.assigned_to.errors }"
+              placeholder="Choose a users assigned_to..."></ng-select>
+          <div *ngIf="submitted && f.assigned_to.errors" class="invalid-feedback">
+            <div *ngIf="f.assigned_to.errors.required">assigned_to is required</div>
+            <div *ngIf="f.assigned_to.errors.pattern">This value should be a valid name</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-4 pull-left">
+          <label class="control-label">Project Date</label>
+        </div>
+        <div class="col-lg-8">
+                <ng-template #t let-date let-focused="focused">
+                  <span class="custom-day " [class.focused]="focused" [class.range]="isRange(date)"
+                    [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
+                    (mouseleave)="hoveredDate = null">
+                    {{ date.day }}
+                  </span>
+                </ng-template>
+                <input type="text" class="form-control date" (click)="hidden=!hidden" name="daterange"
+                  autocomplete="off" formControlName="selected" [(ngModel)]="selected"/>
+                <ngb-datepicker #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t"
+                  outsideDays="hidden" [hidden]="hidden">
+                </ngb-datepicker>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-success pull-left" (click)="update()">Edit</button>
+      <button type="button" class="btn btn-danger" (click)="dismiss(modal)">Annuler</button>
+    </div>
+  </form>
+</ng-template>
+
+<!---------------------------------------------------delete modal*************************************-->
+<ng-template #confirmDelete let-modal>
+  <div class="modal-body text-center">
+    <p>Are you shure to delete this project</p>
+    <button type="button" style="margin-right: 7px;" class="btn btn-danger" (click)="confirm()">YES</button>
+    <button type="button" class="btn btn-primary" (click)="modal.dismiss()">No</button>
+  </div>
+</ng-template>
+
+<!-- ////*****************************************detailemodal*******************************************************************/////////////// -->
+<ng-template #detailemplate let-modal>
+  <form class="form-horizontal modal-body text-center" [formGroup]="formDetail" >
+    <div class="modal-header">
+      <h3 class="modal-title pull-left"> Project Details </h3>
+    </div>
+  <div  >
+    <div class="col-lg-12">
+      <div>
+        <div class="table-responsive">
+          <table class="table project-list-table
+          table-nowrap align-middle table-borderless">
+            <thead class="table-dark" >
+              <tr>
+                <th scope="col">Description </th>
+                <!-- <th></th> -->
+                <th scope="col">Team </th>
+              </tr>
+            </thead>
+            <tbody >
+                <td>
+                  <p class="text-muted mb-0 text-truncate font-size-14">{{projectDetail.description}}</p>
+                </td>
+                <!-- <td></td> -->
+                <td *ngIf="projectDetail.assigned_to">
+                  <ng-container *ngFor="let membre of projectDetail.assigned_to ">
+                    <p class="text-muted mb-0 text-truncate font-size-14">{{membre.email}}</p>
+                  </ng-container>
+                </td>
+              <!-- </tr> -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-dark" (click)="modal.dismiss()">Close</button>
+    </div>
+  </div>
+</form>
+</ng-template>
