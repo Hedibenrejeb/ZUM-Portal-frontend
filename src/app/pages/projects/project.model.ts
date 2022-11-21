@@ -9,6 +9,7 @@ export class Project {
     end_date:any;
     assigned_to?:any;
     status?:any;
+    matricule?:any;
     constructor(){
         this.id=0;
         this.description='';
@@ -16,6 +17,8 @@ export class Project {
         this.starter_at=null;
         this.end_date=null;
         this.created_by=null;
+        this.matricule=null;
+
     }
 }
 

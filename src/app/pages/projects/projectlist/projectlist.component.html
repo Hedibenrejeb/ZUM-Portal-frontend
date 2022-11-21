@@ -176,13 +176,16 @@
             <thead class="table-dark" >
               <tr>
                 <th scope="col">Description </th>
-                <!-- <th></th> -->
+                <th scope="col">Matricule </th>
                 <th scope="col">Team </th>
               </tr>
             </thead>
             <tbody >
                 <td>
                   <p class="text-muted mb-0 text-truncate font-size-14">{{projectDetail.description}}</p>
+                </td>
+                <td>
+                  <p class="text-muted mb-0 text-truncate font-size-14">{{projectDetail.matricule}}</p>
                 </td>
                 <!-- <td></td> -->
                 <td *ngIf="projectDetail.assigned_to">

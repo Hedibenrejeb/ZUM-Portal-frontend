@@ -26,6 +26,18 @@
               </div>
             </div>
             <div class="row mb-4">
+              <label for="matricule" class="col-form-label col-lg-2">Matricule</label>
+              <div class="col-lg-10">
+                <input id="matricule" name="matricule" formControlName="matricule" type="text"
+                  class="form-control" [ngClass]="{ 'is-invalid': submitted && f.matricule.errors }"
+                  placeholder="Enter Project matricule...">
+              </div>
+              <div *ngIf="submitted && f.matricule.errors" class="invalid-feedback">
+                <div *ngIf="f.matricule.errors.required">matricule is required</div>
+                <div *ngIf="f.matricule.errors.pattern">This value should be a valid matricule</div>
+              </div>
+            </div>
+            <div class="row mb-4">
               <label for="project_description" class="col-form-label col-lg-2">Project Description</label>
               <div class="col-lg-10">
                 <textarea class="form-control" formControlName="project_description"
@@ -33,7 +45,7 @@
                   rows="3" placeholder="Enter Project Description..."></textarea>
               </div>
               <div *ngIf="submitted && f.project_description.errors" class="invalid-feedback">
-                <div *ngIf="f.project_description.errors.required">Project_name is required</div>
+                <div *ngIf="f.project_description.errors.required">project_description is required</div>
               </div>
             </div>
             <div class="row mb-4">

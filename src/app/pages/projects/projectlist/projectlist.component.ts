@@ -41,10 +41,15 @@ export class ProjectlistComponent implements OnInit {
   date;
   loggedUser;
   selectedProject:number;
+  listProjectByUser;
+  userId;
 
 
-  constructor(private router:Router,private projectservice: ProjectService, private route: ActivatedRoute, private UserProfileService: UserProfileService,
-    private modalService: NgbModal, private formBuilder: FormBuilder, private authServ: AuthenticationService) {
+  constructor(private router:Router,private projectservice: ProjectService,
+    private route: ActivatedRoute, private UserProfileService: UserProfileService,
+    private modalService: NgbModal, private formBuilder: FormBuilder,
+    private projectService: ProjectService,
+    private authServ: AuthenticationService) {
     this.statusValue = ['active', 'suspended', 'completed', 'paused'];
   }
   hoveredDate: NgbDate;
@@ -60,6 +65,8 @@ export class ProjectlistComponent implements OnInit {
 
   ngOnInit() {
     this.hidden=true;
+    this.userId = this.authServ.getUserFromLocalCache().id;
+    this.getListProjectByUser(this.userId)
     this.loggedUser = this.authServ.getUserFromLocalCache().role;
     this.breadCrumbItems = [{ label: 'Projects' }, { label: 'Projects List', active: true }];
     this.getAll();
@@ -70,19 +77,25 @@ export class ProjectlistComponent implements OnInit {
       starter_at: new FormControl(['', Validators.required,]),
       status: new FormControl(['', Validators.required,]),
       descreption: new FormControl(['', Validators.required,]),
+
     });
 
     this.formDetail = new FormGroup({
       assigned_to: new FormControl(['', Validators.required,]),
       descreption: new FormControl(['', Validators.required,]),
+      matricule: new FormControl(['', Validators.required,]),
     });
   }
 
-
+  public getListProjectByUser(userId: any) {
+    this.projectService.getListProjectByUser(userId).subscribe(result => {
+      this.listProjectByUser = result.results;
+      console.log('this.listProjectByUser', this.listProjectByUser);
+    });
+  }
   getAll() {
     this.projectservice.getAll().subscribe(result => {
       this.projects = result.results;
-      console.log(this.projects[0]["starter_at"])
       console.log('results', this.projects);
       if (this.projects.length > 0) {
         this.noData = false;
@@ -106,7 +119,6 @@ export class ProjectlistComponent implements OnInit {
       data => {
         let listUser = data;
         this.selectValue = listUser.results;
-        console.log('user**************', this.selectValue);
       })
   }
   /* tesiting  */
@@ -133,7 +145,6 @@ export class ProjectlistComponent implements OnInit {
     date2 = this.projectToUpdate.end_date;
     d1 = formatDate(date1, 'dd/MM/yyyy', 'en_US')
     d2 = formatDate(date2, 'dd/MM/yyyy', 'en_US')
-    console.log(d1 , d2 ,"test")
     this.date = d1.concat("-", d2.toString())
     this.selected = this.date
     this.formUpdate = this.formBuilder.group({
@@ -145,34 +156,7 @@ export class ProjectlistComponent implements OnInit {
 
   }
 
-  // fixingCode(newProject: Project) {
-  //   console.log("fixing")
-  //   /**** form.value ******/
-  //   this.projectToUpdate.id = newProject.id;
-  //   this.projectToUpdate.status = newProject.status;
-  //   this.projectToUpdate.name = newProject.name;
-  //   this.projectToUpdate.description = newProject.description;
-  //   this.projectToUpdate.assigned_to = newProject.assigned_to;
-  //   this.projectToUpdate.created_by = newProject.created_by;
-  //   /********date *******/
-  //   console.log("testing date ")
-  //   let d1, d2;
-  //   d1 = this.dateProject[0];
-  //   d2 = this.dateProject[1];
-  //   console.log("d1,d2", d1, d2)
-  //   let date1 = d1.split("/", 3) //[19 ,10, 2022 ]
-  //   let date2 = d2.split("/", 3)
-  //   console.log("date:", date1, date2)
-  //   d1 = date1[1] + "/" + date1[0] + "/" + date1[2]
-  //   d2 = date2[1] + "/" + date2[0] + "/" + date2[2]
-  //   console.log("datestart", d1, "dateFin", d2)
-  //   let start = formatDate(d1, 'yyyy-MM-dd', 'en_US')
-  //   let end = formatDate(d2, 'yyyy-MM-dd', 'en_US')
-  //   this.projectToUpdate.starter_at = start;
-  //   this.projectToUpdate.end_date = end;
-  //   console.log("starter_at:", start)
-  //   console.log("end_date:", end)
-  // }
+  
 
 
   openDetailModal(template: TemplateRef<any>, project) {
@@ -181,7 +165,9 @@ export class ProjectlistComponent implements OnInit {
     this.formDetail = this.formBuilder.group({
       assigned_to: [project.assigned_to, Validators.required,],
       descreption: [project.description, Validators.required],
+      matricule: [project.matricule, Validators.required],
     })
+
   }
 
   update() {
@@ -218,18 +204,14 @@ export class ProjectlistComponent implements OnInit {
     }
   }
   
-  traiterInput(){/* (14/mm/yyyy-dd/mmm/yyyy ====> yyyyy-mm-dd) */
+  traiterInput(){
     let d1, d2;
-    console.log(this.dateProject)
     d1 = this.dateProject[0];
     d2 = this.dateProject[1];
-    console.log("d1,d2", d1, d2)
-    let date1 = d1.split("/", 3) //[19 ,10, 2022 ]
+    let date1 = d1.split("/", 3) 
     let date2 = d2.split("/", 3)
     d1 = date1[2] + "-" + date1[1] + "-" + date1[0]
     d2 = date2[2] + "-" + date2[1] + "-" + date2[0]
-    console.log("date:", date1, date2)
-    console.log("datestart", d1, "dateFin", d2)
     this.projectToUpdate.starter_at = d1;
     this.projectToUpdate.end_date = d2;
     }
@@ -295,7 +277,6 @@ export class ProjectlistComponent implements OnInit {
 
   public tasksbyProject(project:Projet){
     this.selectedProject=project.id;
-    console.log('selected project',this.selectedProject)
     this.router.navigate(['/p/tasks/list', project.id]);
   } 
   

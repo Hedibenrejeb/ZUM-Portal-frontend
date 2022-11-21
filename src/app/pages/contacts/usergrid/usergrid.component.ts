@@ -51,7 +51,6 @@ export class UsergridComponent implements OnInit {
   }
   ngOnInit() {
     this.loggedUser = this.authServ.getUserFromLocalCache().role;
-    console.log('this.loggedUser', this.loggedUser);
     this.breadCrumbItems = [{ label: 'Contacts' }, { label: 'Users Grid', active: true }];
     this.newUserForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -113,7 +112,6 @@ export class UsergridComponent implements OnInit {
     this.getListProjectByUser(userId);
   }
   public getListProjectByUser(userId: any) {
-    console.log('userId', userId)
     this.projectService.getListProjectByUser(userId).subscribe(result => {
       this.listProject = result.results;
       console.log('this.listProject', this.listProject);
@@ -129,12 +127,6 @@ export class UsergridComponent implements OnInit {
         let listUser = data;
         this.userGridData =data['results'];
         this.userid = this.userGridData;
-        console.log('user*****iddddddddd*********', this.userid);
-        //   let userId = [];
-        //   this.userid.forEach(element => {
-        //     userId.push(element.id);
-        // });
-        // console.log('userId', userId);
       })
   }
 }

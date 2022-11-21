@@ -51,6 +51,7 @@ export class CreateComponent implements OnInit {
     this.submitted = false
     this.formCreate = this.formBuilder.group({
       project_name: ['', Validators.required,],
+      matricule: ['', Validators.required,],
       assigned_to: ['', Validators.required,],
       project_description: ['', Validators.required],
       selected: ['', Validators.required],
@@ -78,6 +79,7 @@ export class CreateComponent implements OnInit {
     let projectData = {
       'name': this.f.project_name.value,
       'description': this.f.project_description.value,
+      'matricule': this.f.matricule.value,
       'created_by': this.loggedUser,
       'assigned_to': assigned_user,
     }
@@ -149,6 +151,7 @@ export class CreateComponent implements OnInit {
   fixingCode(newProject:Project){
     /**** form.value ******/
     this.addProject.name=newProject.name;
+    this.addProject.matricule=newProject.matricule;
     this.addProject.description=newProject.description;
     this.addProject.assigned_to=newProject.assigned_to;
     this.addProject.created_by=newProject.created_by;
