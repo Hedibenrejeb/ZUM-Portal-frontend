@@ -60,12 +60,10 @@ export class ListComponent implements OnInit {
   }
  updateTask(i: number) {
     this.id = i;
-    console.log("id of task selected ", this.id)
     this.router.navigate(['/p/tasks/updateTask/', this.id])
   }
   onSelectTask(task:Task){
     this.selectTask=task
-    console.log( "selected task ",this.selectTask.id)
     //  this.detailTask(this.selectTask.id)
   }
    /**
@@ -78,8 +76,6 @@ export class ListComponent implements OnInit {
 detailTask(task:Task, scrollDataModal: any){
   // this.selectTask=task
   this.taskServ.taskByid(task.id).subscribe((task:Task)=>{
-    console.log("task details")
-    console.log(task)
     this.selectTask=task
     if(task.creator.firstname){
      this.modalService.open(scrollDataModal, { scrollable: true });
@@ -93,11 +89,8 @@ detailTask(task:Task, scrollDataModal: any){
     this.modalService.open(deleteDataModal, { size: 'lg', centered: true });
   }
   onDeleteTask(idtask:number){
-    console.log( "deleted task ",idtask)
-    console.log(idtask)
     this.taskServ.deleteTask(idtask).subscribe(()=>{
       this.getTasksbyIdProject(this.projectid);
-    console.log("delete succussfuly")
     this.clickButton('delete-close');
     }, (errorResponse: HttpErrorResponse) => {
       console.log(errorResponse);
@@ -110,7 +103,6 @@ detailTask(task:Task, scrollDataModal: any){
   }
 // for param Map
 public getTasksbyIdProject(idproj:number){ this.taskServ.listTaskByProject(idproj).subscribe((response:Task[])=>{
-  console.log("tasks by project")
   //console.log(response)
   this.taskid=response
   //console.log(this.taskid)

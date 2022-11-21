@@ -1,19 +1,14 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { DndDropEvent } from 'ngx-drag-drop';
 import { TaskService } from 'src/app/core/services/task.service';
 import { Task } from 'src/app/core/models/task.models';
-import { CustomHttpResponse } from 'src/app/core/models/custom-http-response';
-import { tasks } from './data';
 import { Role } from 'src/app/core/enum/Role';
 import { Taskk } from './kanabn.model';
-import { alphaNumerate } from 'chartist';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/core/models/auth.models';
 import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ProjectService } from 'src/app/core/services/project.service';
-import { Projet } from 'src/app/core/models/projet';
 
 @Component({
   selector: 'app-kanbanboard',
@@ -46,27 +41,18 @@ id:number;
 
   ngOnInit() {
     this.userActuel=this.authServ.getUserFromLocalCache();
-    console.log(this.userActuel)
     this.getTasks();
       
   }
-
   public getTasks(): void {
     this.taskServ.listTask().subscribe(
       (response:Task[]) => {
-           console.log("refresh after delete")
    console.log(response)
-           this.tasks=response.filter(t=>t.affectedTo.id==this.userActuel.id);
-           console.log(this.tasks) 
+         this.tasks=response.filter(t=>t.affectedTo.id==this.userActuel.id);
          this.tasksInprogress=this.tasks.filter(t=>t.status=="INPROGRESS");
          this.tasksCompleted=this.tasks.filter(t=>t.status=="COMPLETED");
          this.tasksUnstarted=this.tasks.filter(t=>t.status=="UNSTARTED");
-         this.tasksCancel=this.tasks.filter(t=>t.status=="CANCEL");
-         
-         console.log("tasks Progress",this.tasksInprogress )
-         console.log("tasks completed",this.tasksCompleted )
-         console.log("tasks unstarted",this.tasksUnstarted )
-         console.log("tasks cancel",this.tasksCancel )   
+         this.tasksCancel=this.tasks.filter(t=>t.status=="CANCEL");  
            
       }, (errorResponse: HttpErrorResponse) => {
         console.log(errorResponse);
@@ -75,19 +61,12 @@ id:number;
 
     
   }
-
-
- 
-
   onSelectTask(task:Task){
     this.selectedTask=task
-    console.log( "selected task ",this.selectedTask)
   }
   onEditTask(task:Task){
     this.id = task.id;
-    console.log("id of task selected ", this.id)
     this.router.navigate(['/p/tasks/updateTask/', this.id])
-  console.log("on edit task ")
 }
    /**
    * Open scroll modal
@@ -96,7 +75,6 @@ id:number;
    detailsModal(scrollDataModal: any) {
       this.modalService.open(scrollDataModal, { scrollable: true });
     }
-
 
   deleteMD(deleteDataModal: any) {
     this.modalService.open(deleteDataModal, { size: 'lg', centered: true });
@@ -125,18 +103,6 @@ id:number;
     document.getElementById(buttonId).click();
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
   private getUserRole():string{
     return this.authServ.getUserFromLocalCache().role;
   }
@@ -153,10 +119,6 @@ id:number;
     return this.getUserRole()==Role.SIMPLEUSER;
   }
   
-
-
-
-
   public traitementList(){
     /* 
             let i=[]
@@ -170,15 +132,9 @@ id:number;
   
  }
 
-
-
  public getTaskuser(){
   this.taskServ.listTaskByAffectedTo(this.userActuel.id).subscribe((response:Task[])=>{
-    console.log("affected to id ")
     this.taskss = response['results'];
-    console.log(this.taskss)
-
-    
   }, (errorResponse: HttpErrorResponse) => {
     console.log(errorResponse);
   }

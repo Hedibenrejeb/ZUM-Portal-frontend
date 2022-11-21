@@ -167,7 +167,6 @@ if(this.projectId!=null){
 }
 if(this.isManager){
 this.members=this.project.assigned_to
-//console.log("liste user from project",this.members)
 }
 }
 
@@ -183,14 +182,12 @@ descriptionTraiter(){
 
 
   public addNewTask(newTaskForm: Task): void {
-  //console.log("newTaskForm")
   this.descriptionTraiter();
   this.fixingCode(newTaskForm);
  
       this.taskServ.addTask(this.addTask).subscribe((response: Task) => {
         console.log(response)
              
-              console.log("added fonction ")
              this.selected=null;
              this.description="Content of the editor"
              this.project=null;
@@ -212,9 +209,6 @@ descriptionTraiter(){
     
 /**  Traitement     ***/
 fixingCode(newTask:Task){
-  console.log("fixing")
-  console.log(newTask)
-  console.log(newTask.creator.id , newTask.affectedTo.id)
   let datecreate= new Date();
   /**** form.value ******/
   this.addTask.name=newTask.name;
@@ -227,46 +221,22 @@ fixingCode(newTask:Task){
 
   /********date *******/
  let dt=formatDate(datecreate,'yyyy-MM-dd','en_US')
- console.log("date creation")
- console.log(dt)
  this.addTask.createdate=dt;
   /********* */
-  
-  console.log("testing date ")
    let d1,d2;
    d1=this.datetask[0];
    d2=this.datetask[1];
-
-   console.log("d1,d2",d1,d2)
    let date1 =d1.split("/",3) //[19 ,10, 2022 ]
    let date2 =d2.split("/",3)
-
-   console.log("date:",date1,date2)
-
   // d1 = date1[1] +"/" + date1[0]  +"/" + date1[2]
   // d2 = date2[1] +"/" + date2[0]  +"/" + date2[2]
-   console.log("datestart",d1,"dateFin",d2)
 
   let start=formatDate(d1,'yyyy-MM-dd','en_US')
   let end=formatDate(d2,'yyyy-MM-dd','en_US')
-  
-
   this.addTask.startdate=start;
-  
   this.addTask.enddate=end; 
 
-
- console.log(this.addTask)
-
-
-
 }
-
-
-
-
-
-
 
   /**
    * on date selected
@@ -346,15 +316,7 @@ fixingCode(newTask:Task){
          for(let j=0;j<i.length;j++){ this.projectsSu.push(this.projects[j])}
      }) */
   
-  
-  
   }
-
-
-
-
-
-
 
   /**
    * Is hovered over date

@@ -11,7 +11,6 @@ import { Projet } from "src/app/core/models/projet";
 
 
 
-
 @Component({
   selector: 'app-projectlist',
   templateUrl: './projectlist.component.html',
@@ -78,11 +77,9 @@ export class ProjectlistComponent implements OnInit {
     });
   }
 
-
   getAll() {
     this.projectservice.getAll().subscribe(result => {
       this.projects = result.results;
-      console.log('results', this.projects);
       if (this.projects.length > 0) {
         this.noData = false;
       }
@@ -98,14 +95,11 @@ export class ProjectlistComponent implements OnInit {
     this.hidden=true;
   }
   
-
-
   getallusers() {
     this.UserProfileService.getallusers().subscribe(
       data => {
         let listUser = data;
         this.selectValue = listUser.results;
-        console.log('user**************', this.selectValue);
       })
   }
   /* tesiting  */
@@ -113,8 +107,6 @@ export class ProjectlistComponent implements OnInit {
   openModal(template: TemplateRef<any>) {
     this.modalService.open(template, { size: 'lg' });
   }
-
-
 
   openModal2(template: TemplateRef<any>) {
     this.modalService.open(template, { size: 'lg' });
@@ -141,36 +133,6 @@ export class ProjectlistComponent implements OnInit {
       status: [project.status, Validators.required],
     })
   }
-
-  // fixingCode(newProject: Project) {
-  //   console.log("fixing")
-  //   /**** form.value ******/
-  //   this.projectToUpdate.id = newProject.id;
-  //   this.projectToUpdate.status = newProject.status;
-  //   this.projectToUpdate.name = newProject.name;
-  //   this.projectToUpdate.description = newProject.description;
-  //   this.projectToUpdate.assigned_to = newProject.assigned_to;
-  //   this.projectToUpdate.created_by = newProject.created_by;
-  //   /********date *******/
-  //   console.log("testing date ")
-  //   let d1, d2;
-  //   d1 = this.dateProject[0];
-  //   d2 = this.dateProject[1];
-  //   console.log("d1,d2", d1, d2)
-  //   let date1 = d1.split("/", 3) //[19 ,10, 2022 ]
-  //   let date2 = d2.split("/", 3)
-  //   console.log("date:", date1, date2)
-  //   d1 = date1[1] + "/" + date1[0] + "/" + date1[2]
-  //   d2 = date2[1] + "/" + date2[0] + "/" + date2[2]
-  //   console.log("datestart", d1, "dateFin", d2)
-  //   let start = formatDate(d1, 'yyyy-MM-dd', 'en_US')
-  //   let end = formatDate(d2, 'yyyy-MM-dd', 'en_US')
-  //   this.projectToUpdate.starter_at = start;
-  //   this.projectToUpdate.end_date = end;
-  //   console.log("starter_at:", start)
-  //   console.log("end_date:", end)
-  // }
-
 
   openDetailModal(template: TemplateRef<any>, project) {
     this.openModal(template);
@@ -219,11 +181,8 @@ export class ProjectlistComponent implements OnInit {
     let d1, d2;
     d1 = this.dateProject[0];
     d2 = this.dateProject[1];
-    console.log("d1,d2", d1, d2)
     let date1 = d1.split("/", 3) //[19 ,10, 2022 ]
     let date2 = d2.split("/", 3)
-    console.log("date:", date1, date2)
-    console.log("datestart", d1, "dateFin", d2)
     let start = formatDate(d1, 'yyyy-MM-dd', 'en_US')
     let end = formatDate(d2, 'yyyy-MM-dd', 'en_US')
     this.projectToUpdate.starter_at = start;
@@ -291,7 +250,6 @@ export class ProjectlistComponent implements OnInit {
 
   public tasksbyProject(project:Projet){
     this.selectedProject=project.id;
-    console.log('selected project',this.selectedProject)
     this.router.navigate(['/p/tasks/list', project.id]);
   } 
   

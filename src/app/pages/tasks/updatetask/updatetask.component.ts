@@ -113,7 +113,6 @@ export class UpdatetaskComponent implements OnInit {
     this.breadCrumbItems = [{ label: 'Tasks' }, { label: 'Create Task', active: true }];
     this.hidden = true;
     this.selectedId = this.route.snapshot.paramMap.get('id');
-    console.log(this.selectedId);
     this.getTasks();
 
   }
@@ -126,7 +125,6 @@ export class UpdatetaskComponent implements OnInit {
           let test: [] = e.project?.name
         })
         this.updateTask = this.tasks.find(t => t.id == this.selectedId)
-        console.log(this.updateTask)
         this.traiterOutput()
         // console.log(this.updateTask.name);
         // this.updateTask=this.lastatask
@@ -137,22 +135,16 @@ export class UpdatetaskComponent implements OnInit {
 
   }
   traiterOutput() { /* yyyy-mm-dd=>mm/dd/yyyy */
-    console.log(this.updateTask['startdate'])
-    console.log(this.updateTask['enddate'])
     let d1, d2, date1, date2,start,end;
     date1 = this.updateTask['startdate'];
     date2 = this.updateTask['enddate'];
-    console.log(date1,date2)
     d1 =date1.split("-",3) //[19 ,10, 2022 ]
     d2 =date2.split("-",3)
-    console.log(d1,d2)
     start = d1[1] +"/" + d1[2]  +"/" + d1[0]
     end = d2[1] +"/" + d2[2]  +"/" + d2[0]
-    console.log("hhh",start,end)
     date1= formatDate(start, 'dd/MM/yyyy', 'en_US')
     date2 = formatDate(end, 'dd/MM/yyyy', 'en_US')
     this.date = date1.concat("-", date2.toString())
-    console.log(this.date)
     this.selected = this.date
   }
 
@@ -160,7 +152,6 @@ export class UpdatetaskComponent implements OnInit {
 
     this.fixingCode(this.updateTask)
 
-    console.log(this.selectedId)
     this.updateservice.updateTask(this.selectedId, this.updateTask).subscribe((response: Task) => {
       console.log(response)
       // updateTaskForm =response;
@@ -213,7 +204,6 @@ export class UpdatetaskComponent implements OnInit {
   }
 
   fixingCode(updatenewTaskForm: Task) {
-    console.log("fixing")
     /**** form.value ******/
     this.updateTask.name = updatenewTaskForm.name;
     this.updateTask.creator = updatenewTaskForm.creator.id;
@@ -225,10 +215,7 @@ export class UpdatetaskComponent implements OnInit {
     this.updateTask['enddate'] = updatenewTaskForm['enddate'];
     let dateupdate= new Date();
     let dt=formatDate(dateupdate,'yyyy-MM-dd','en_US')
-    console.log("date update")
-    console.log(dt)
     this.updateTask.updatedate=dt;
-    console.log(this.selected)
     this.datetask = this.selected.split("-", 2)
     if ((this.datetask[0] != this.updateTask['startdate']) && (this.datetask[1] != this.updateTask['enddate'])) {
       if (this.datetask[0] != '') {
@@ -239,18 +226,13 @@ export class UpdatetaskComponent implements OnInit {
     // console.log(this.updateTask)
   }
   traiterInPut() {
-    console.log("testing date ")
-    console.log(this.datetask[0], this.datetask[1])
     let d1, d2;
     d1 = this.datetask[0];
     d2 = this.datetask[1];
-    console.log("d1,d2", d1, d2)
     let date1 = d1.split("/", 3) //[19 ,10, 2022 ]
     let date2 = d2.split("/", 3)
-    console.log("date:", date1, date2)
     d1 = date1[2] + "-" + date1[0] + "-" + date1[1]
     d2 = date2[2] + "-" + date2[0] + "-" + date2[1]
-    console.log("datestart", d1, "dateFin", d2)
     let start = formatDate(d1, 'yyyy-MM-dd', 'en_US')
     let end = formatDate(d2, 'yyyy-MM-dd', 'en_US')
     this.updateTask['startdate'] = start;

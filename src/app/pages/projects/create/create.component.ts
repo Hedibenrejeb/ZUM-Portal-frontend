@@ -43,7 +43,6 @@ export class CreateComponent implements OnInit {
   ngOnInit() {
 
     this.loggedUser = this.authServ.getUserFromLocalCache().id
-    console.log(this.loggedUser)
     this.getallusers();
     this.breadCrumbItems = [{ label: 'Projects' }, { label: 'Create New', active: true }];
     this.selected = '';
@@ -62,8 +61,6 @@ export class CreateComponent implements OnInit {
       data => {
         let listUser = data;
         this.selectValue = listUser.results;
-        console.log("thisresults", this.selectValue)
-
       })
   }
   get f() {
@@ -87,10 +84,8 @@ export class CreateComponent implements OnInit {
       return;
     }
     if (!this.formCreate.invalid) {
-      console.log("projectData", projectData)
       this.projectService.create(this.addProject).subscribe(
         data => {
-          console.log("data", data)
           this.successmsg = true;
           if (this.successmsg) {
             this.router.navigate(['p/projects/list']);
