@@ -77,7 +77,6 @@ export class ProjectlistComponent implements OnInit {
       starter_at: new FormControl(['', Validators.required,]),
       status: new FormControl(['', Validators.required,]),
       descreption: new FormControl(['', Validators.required,]),
-
     });
 
     this.formDetail = new FormGroup({
@@ -96,7 +95,7 @@ export class ProjectlistComponent implements OnInit {
   getAll() {
     this.projectservice.getAll().subscribe(result => {
       this.projects = result.results;
-      console.log('results', this.projects);
+      console.log('results******', this.projects);
       if (this.projects.length > 0) {
         this.noData = false;
       }
@@ -127,8 +126,6 @@ export class ProjectlistComponent implements OnInit {
     this.modalService.open(template, { size: 'lg' });
   }
 
-
-
   openModal2(template: TemplateRef<any>) {
     this.modalService.open(template, { size: 'lg' });
   }
@@ -153,7 +150,6 @@ export class ProjectlistComponent implements OnInit {
       selected: [this.date, Validators.required],
       status: [project.status, Validators.required],
     })
-
   }
 
   

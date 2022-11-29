@@ -7,44 +7,32 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UserProfileService {
-    public host=environment.apiUrl;
-  //  baseurl = " http://127.0.0.1:8000/";
-    
+    public host = environment.apiUrl;
 
-    // getAll() {
-    //     return this.http.get<User[]>(this.baseurl +`api/login`);
-    // }
-    
+    public getListProjectByUser(userId): Observable<any> {
+        return this.http.get(`${this.host}/project/GetProjectByUser/` + userId);
+    }
 
-
-
-    getallusers():Observable<any> {
+    getallusers(): Observable<any> {
         return this.http.get(`${this.host}/auth/list-user/`);
     }
-    register(user: any):Observable<any> {
+    getUserById(userId): Observable<any> {
+        return this.http.get(`${this.host}/auth/GetUserById/` + userId);
+    }
+    register(user: any): Observable<any> {
         return this.http.post(`${this.host}/auth/register-user/`, user);
     }
     constructor(private http: HttpClient) { }
- 
-    public register1(user: User):Observable<HttpResponse<User>> {
-        return this.http.post<User>(`${this.host}/auth/register-user/`,user ,{observe: 'response' });
-      }
-    
 
-    register2(user: any):Observable<any> {
+    public register1(user: User): Observable<HttpResponse<User>> {
+        return this.http.post<User>(`${this.host}/auth/register-user/`, user, { observe: 'response' });
+    }
+    register2(user: any): Observable<any> {
         return this.http.post(`${this.host}/auth/register-user/`, user);
     }
 
-    update(user:any):Observable<any> {
-        return this.http.put(`${this.host}/auth/updateafterregister/` + user.id , user);
+    update(user: any): Observable<any> {
+        return this.http.put(`${this.host}/auth/updateUser/`+ user.id, user);
     }
 
-
-    // getAll() {
-    //     return this.http.get<User[]>(`/api/login`);
-    // }
-
-    // register(user: User) {
-    //     return this.http.post(`/users/register`, user);
-    // }
 }

@@ -14,7 +14,7 @@ export class ProjectService {
   constructor(private http:HttpClient) { }
 
 
-  create(project : Project){
+create(project : Project){
     return this.http.post(`${this.host}/project/add-project/`, project);
 }
 
@@ -31,12 +31,9 @@ getAll():Observable<any>{
   return this.http.get(`${this.host}/project/list-project/`);
 }
   /*****/
-
 public listProject():Observable<Projet[]>{
     return this.http.get<Projet[]>(`${this.host}/project/listproject/`);
 }
-
-
 //n'afficher pas la liste d'affected to 
 public listProjectByCreator(id:number):Observable<Projet[]>{
   return this.http.get<Projet[]>(`${this.host}/project/GetProjectByCreator/${id}`);

@@ -84,6 +84,9 @@ public saveToken(token:string):void{
     public getUserFromLocalCache():User{
       return  JSON.parse( localStorage.getItem('user')); }
 
+      public getUserFromLocalCachee():User{
+        return  JSON.parse( localStorage.getItem('id')); }
+
 //loadfrom localstorage
     public loadToken():void{
         this.token=localStorage.getItem('token'); }

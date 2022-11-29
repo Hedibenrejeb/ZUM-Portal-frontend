@@ -20,31 +20,34 @@
         </div>
         <div class="card-body pt-0">
           <div class="row">
-            <div class="col-sm-4">
-              <div class="avatar-md profile-user-wid mb-4">
-                <img src="assets/images/users/avatar-1.jpg" alt="" class="img-thumbnail rounded-circle">
+            <div class="col-sm-4" *ngFor="let data of user">
+              <div class="avatar-lg mx-auto mb-4" *ngIf="!data.image">
+                <span class="avatar-title rounded-circle bg-soft bg-primary text-primary font-size-16">
+                  {{data?.firstname?.charAt(0) + data?.lastname?.charAt(0)}}
+                </span>
               </div>
-              <h5 class="font-size-15 text-truncate">Cynthia Price</h5>
-              <p class="text-muted mb-0 text-truncate">UI/UX Designer</p>
+               <div *ngIf="data.image" class="mb-4">
+                <img class="rounded-circle avatar-sm" src="{{data.image}}"/>
+              </div>
+              <h5 class="font-size-15 text-truncate">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{data.firstname}} {{data.lastname}}</h5>
+              <p class="font-size-15 text-truncate">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{data.Experience}}</p>
             </div>
-
             <div class="col-sm-8">
               <div class="pt-4">
-
                 <div class="row">
-                  <div class="col-6">
-                    <h5 class="font-size-15">125</h5>
+                  <div class="col-4">
+                  </div>
+                  <div class="col-4">
+                  </div>
+                  <div class="col-4" *ngFor="let project of projects">
+                    <h5 class="font-size-15">{{projects?.length}}</h5>
                     <p class="text-muted mb-0">Projects</p>
                   </div>
-                  <div class="col-6">
-                    <h5 class="font-size-15">$1245</h5>
-                    <p class="text-muted mb-0">Revenue</p>
-                  </div>
                 </div>
-                <div class="mt-4">
+                <!-- <div class="mt-4">
                   <a href="javascript: void(0);" class="btn btn-primary btn-sm">View Profile <i
                       class="mdi mdi-arrow-right ms-1"></i></a>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -54,28 +57,40 @@
 
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title mb-4">Personal Information</h4>
-
-          <p class="text-muted mb-4">Hi I'm Cynthia Price,has been the industry's standard dummy text To an English
-            person, it will seem like simplified English, as a skeptical Cambridge.</p>
+          <h4 class="card-title mb-4">Personal Information
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <li class="list-inline-item" (click)="openUpdateModal(updatetemplate, user)"> 
+            <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary" ><i class="bx bx-pencil font-size-18"></i></a>
+        </li>  </h4>
           <div class="table-responsive">
             <table class="table table-nowrap mb-0">
-              <tbody>
+              <tbody *ngFor="let data of user" >
                 <tr>
                   <th scope="row">Full Name :</th>
-                  <td>Cynthia Price</td>
+                  <td>{{data.firstname}} {{data.lastname}}</td>
                 </tr>
                 <tr>
                   <th scope="row">Mobile :</th>
-                  <td>(123) 123 1234</td>
+                  <td>{{data.Mobile}}</td>
                 </tr>
                 <tr>
                   <th scope="row">E-mail :</th>
-                  <td>cynthiaskote@gmail.com</td>
+                  <td>{{data.email}}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Location :</th>
-                  <td>California, United States</td>
+                  <th scope="row">Address :</th>
+                  <td>{{data.Location}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">Function :</th>
+                  <td>{{data.Experience}}</td>
                 </tr>
               </tbody>
             </table>
@@ -84,9 +99,9 @@
       </div>
       <!-- end card -->
 
-      <div class="card">
+      <!-- <div class="card">
         <div class="card-body">
-          <h4 class="card-title mb-5">Experience</h4>
+          <h4 class="card-title mb-5">Skills</h4>
           <div class="">
             <ul class="verti-timeline list-unstyled">
               <li class="event-list active">
@@ -99,7 +114,8 @@
                   </div>
                   <div class="media-body">
                     <div>
-                      <h5 class="font-size-15"><a href="javascript: void(0);" class="text-dark">Back end Developer</a></h5>
+                      <h5 class="font-size-15"><a href="javascript: void(0);" class="text-dark">Back end Developer</a>
+                      </h5>
                       <span class="text-primary">2016 - 19</span>
                     </div>
                   </div>
@@ -115,7 +131,8 @@
                   </div>
                   <div class="media-body">
                     <div>
-                      <h5 class="font-size-15"><a href="javascript: void(0);" class="text-dark">Front end Developer</a></h5>
+                      <h5 class="font-size-15"><a href="javascript: void(0);" class="text-dark">Front end Developer</a>
+                      </h5>
                       <span class="text-primary">2013 - 16</span>
                     </div>
                   </div>
@@ -141,8 +158,7 @@
           </div>
 
         </div>
-      </div>
-      <!-- end card -->
+      </div>  -->
     </div>
 
     <div class="col-xl-8">
@@ -171,63 +187,29 @@
             <table class="table table-nowrap table-hover mb-0">
               <thead>
                 <tr>
-                  <th scope="col">#</th>
                   <th scope="col">Projects</th>
                   <th scope="col">Start Date</th>
-                  <th scope="col">Deadline</th>
-                  <th scope="col">Budget</th>
+                  <th scope="col">End Date</th>
+                  <th scope="col">Status</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Skote admin UI</td>
-                  <td>2 Sep, 2019</td>
-                  <td>20 Oct, 2019</td>
-                  <td>$506</td>
-                </tr>
+                <tr *ngFor="let project of projects">
+                  <td>
+                    <p class="text-muted mb-0 text-truncate font-size-14">{{project.name}}</p>
+                  </td>
+                  <td>
+                    <p class="text-muted mb-0 text-truncate font-size-14">{{project.starter_at| date:'longDate'}}</p>
+                  </td>
 
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Skote admin Logo</td>
-                  <td>1 Sep, 2019</td>
-                  <td>2 Sep, 2019</td>
-                  <td>$94</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Redesign - Landing page</td>
-                  <td>21 Sep, 2019</td>
-                  <td>29 Sep, 2019</td>
-                  <td>$156</td>
-                </tr>
-                <tr>
-                  <th scope="row">4</th>
-                  <td>App Landing UI</td>
-                  <td>29 Sep, 2019</td>
-                  <td>04 Oct, 2019</td>
-                  <td>$122</td>
-                </tr>
-                <tr>
-                  <th scope="row">5</th>
-                  <td>Blog Template</td>
-                  <td>05 Oct, 2019</td>
-                  <td>16 Oct, 2019</td>
-                  <td>$164</td>
-                </tr>
-                <tr>
-                  <th scope="row">6</th>
-                  <td>Redesign - Multipurpose Landing</td>
-                  <td>17 Oct, 2019</td>
-                  <td>05 Nov, 2019</td>
-                  <td>$192</td>
-                </tr>
-                <tr>
-                  <th scope="row">7</th>
-                  <td>Logo Branding</td>
-                  <td>04 Nov, 2019</td>
-                  <td>05 Nov, 2019</td>
-                  <td>$94</td>
+                  <td>
+                    <p class="text-muted mb-0 text-truncate font-size-14">{{project.end_date| date:'longDate'}}</p>
+                  </td>
+                  <td>
+                    <p class="badge" [ngClass]="{'bg-success': project.status === 'completed','bg-info': project.status === 'active',
+                    'bg-warning': project.status === 'suspended',
+                    'bg-danger': project.status === 'paused' }">{{project.status}}</p>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -238,3 +220,99 @@
   </div>
   <!-- end row -->
 </div>
+
+<!-- ////*****************************************updatemodal*******************************************************************/////////////// -->
+<ng-template #updatetemplate let-modal>
+  <form class="form-horizontal offset-md-2" [formGroup]="formUpdate">
+    <div class="modal-header">
+      <h3 class="modal-title pull-left">Update User </h3>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <div class="col-sm-4 pull-left">
+          <label class="control-label">FirstName *</label>
+        </div>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="firstname"
+            [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }" id="firstname" rows="3">
+          <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
+            <div *ngIf="f.firstname.errors.required">firstname is required</div>
+            <div *ngIf="f.firstname.errors.pattern">This value should be a valid name</div>
+          </div>
+        </div>
+        <div class="col-sm-4 pull-left">
+          <label class="control-label">LastName*</label>
+        </div>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="lastname"
+            [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" id="lastname" rows="3">
+          <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
+            <div *ngIf="f.lastname.errors.required">lastname is required</div>
+            <div *ngIf="f.lastname.errors.pattern">This value should be a valid name</div>
+          </div>
+        </div>
+        <div class="col-sm-4 pull-left">
+          <label class="control-label">Mobile</label>
+        </div>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" formControlName="Mobile"
+            [ngClass]="{ 'is-invalid': submitted && f.Mobile.errors }" id="Mobile" rows="3">
+          <div *ngIf="submitted && f.Mobile.errors" class="invalid-feedback">
+            <div *ngIf="f.Mobile.errors.required">Mobile is required</div>
+            <div *ngIf="f.Mobile.errors.pattern">This value should be a valid name</div>
+          </div>
+        </div>
+        <div class="col-sm-4 pull-left">
+          <label class="control-label">E-mail</label>
+        </div>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="email"
+            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" id="email" rows="3">
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">email is required</div>
+            <div *ngIf="f.email.errors.pattern">This value should be a valid email</div>
+          </div>
+        </div>
+        <div class="col-sm-4 pull-left">
+          <label class="control-label">Address</label>
+        </div>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="Location"
+            [ngClass]="{ 'is-invalid': submitted && f.Location.errors }" id="Location" rows="3">
+          <div *ngIf="submitted && f.Location.errors" class="invalid-feedback">
+            <div *ngIf="f.Location.errors.required">Location is required</div>
+            <div *ngIf="f.Location.errors.pattern">This value should be a valid Location</div>
+          </div>
+        </div>
+        <div class="col-sm-4 pull-left">
+          <label class="control-label">Function</label>
+        </div>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="Experience"
+            [ngClass]="{ 'is-invalid': submitted && f.Experience.errors }" id="Experience" rows="3">
+          <div *ngIf="submitted && f.Experience.errors" class="invalid-feedback">
+            <div *ngIf="f.Experience.errors.required">Experience is required</div>
+            <div *ngIf="f.Experience.errors.pattern">This value should be a valid Experience</div>
+          </div>
+        </div>
+        <!-- <div class="pos-r">
+          <input id="photo" type="file" accept="image/*" name="photo" placeholder="Photo" required
+            #photoc="ngModel" [(ngModel)]="user.photo"
+            (change)="handleImageCandidatInput($event.target.files)"
+            accept="image/x-png,image/gif,image/jpeg" class="form-password form-control"
+            style="display: none;">
+          <label id="upload-photo-label" for="photo">PHOTO</label>
+          </div> -->
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-success pull-left" (click)="updateProfile()">Edit</button>
+      <button type="button" class="btn btn-danger" (click)="dismiss(modal)">Annuler</button>
+    </div>
+  </form>
+</ng-template>
+<!-- ////*****************************************EndUpdatemodal*******************************************************************/////////////// -->
+
