@@ -47,21 +47,15 @@ export class CreatetaskComponent implements OnInit {
   toNGDate: NgbDate;
   hidden: boolean;
   selected: any;
-
-
-
   members:User[];
  public addTask=new Task();
 project:Projet;
 description="Content of the editor"
 affectedTo:User;
-// project="nesrine"
-projectsSu:Projet[]=[];
 datetask:any;
 tasks:Task[]; 
 userActuel:User;
 projects:Projet[] ;
-d1t:string;
 projectId:number;
 disablemember:boolean;
 
@@ -72,25 +66,7 @@ disablemember:boolean;
 
   @ViewChild('dp', { static: true }) datePicker: any;
 
-  /**
-   * Returns the form field value
-   */
-  // get member(): FormArray { return this.form.get('member') as FormArray; }
-
-  /**
-   * Add the member field in form
-   */
-  // addMember() {
-  //   this.member.push(new FormControl());
-  // }
-
-  // /**
-  //  * Onclick delete member from form
-  //  */
-  // deleteMember(i: number) {
-  //   this.member.removeAt(i);
-  // }
-
+ 
   constructor(private calendar: NgbCalendar,private taskServ:TaskService,private authServ:AuthenticationService
     ,private projServ:ProjectService,private datePipe: DatePipe) { }
 
@@ -167,40 +143,31 @@ if(this.projectId!=null){
 }
 if(this.isManager){
 this.members=this.project.assigned_to
-//console.log("liste user from project",this.members)
 }
 }
 
 
 
 descriptionTraiter(){
-//  console.log("clean data ")
   let str=this.description.replace('<p>','')
   let str2=str.replace('</p>','')
   this.description= str2.replace('&nbsp;',' ')
-  //console.log(this.description)
 }
 
 
   public addNewTask(newTaskForm: Task): void {
-  //console.log("newTaskForm")
   this.descriptionTraiter();
   this.fixingCode(newTaskForm);
  
       this.taskServ.addTask(this.addTask).subscribe((response: Task) => {
-        console.log(response)
-             
-              console.log("added fonction ")
+       
              this.selected=null;
              this.description="Content of the editor"
              this.project=null;
              this.disablemember=true
-             console.log(this.disablemember)
-              // this.dateFin = null;
-      
+                   
             },
               (errorResponse: HttpErrorResponse) => {
-                console.log(errorResponse);
                this.getTasks(); 
       
               }
@@ -212,54 +179,29 @@ descriptionTraiter(){
     
 /**  Traitement     ***/
 fixingCode(newTask:Task){
-  console.log("fixing")
-  console.log(newTask)
-  console.log(newTask.creator.id , newTask.affectedTo.id)
   let datecreate= new Date();
   /**** form.value ******/
   this.addTask.name=newTask.name;
   this.addTask.creator=newTask.creator.id;
- 
   this.addTask.affectedTo=newTask.affectedTo.id;
   this.addTask.description=this.description;
   this.addTask.project=newTask.project.id;
   this.addTask.status=newTask.status;
 
   /********date *******/
- let dt=formatDate(datecreate,'yyyy-MM-dd','en_US')
- console.log("date creation")
- console.log(dt)
- this.addTask.createdate=dt;
+ this.addTask.createdate=formatDate(datecreate,'yyyy-MM-dd','en_US');
   /********* */
-  
-  console.log("testing date ")
-   let d1,d2;
-   d1=this.datetask[0];
-   d2=this.datetask[1];
-
-   console.log("d1,d2",d1,d2)
-   let date1 =d1.split("/",3) //[19 ,10, 2022 ]
-   let date2 =d2.split("/",3)
-
-   console.log("date:",date1,date2)
-
+  let  d1=this.datetask[0];
+  let d2=this.datetask[1];
+  let date1 =d1.split("/",3) //[19 ,10, 2022 ]
+  let date2 =d2.split("/",3)
   d1 = date1[1] +"/" + date1[0]  +"/" + date1[2]
   d2 = date2[1] +"/" + date2[0]  +"/" + date2[2]
-   console.log("datestart",d1,"dateFin",d2)
-
   let start=formatDate(d1,'yyyy-MM-dd','en_US')
   let end=formatDate(d2,'yyyy-MM-dd','en_US')
-  
-
   this.addTask.startdate=start;
-  
   this.addTask.enddate=end; 
-
-
- console.log(this.addTask)
-
-
-
+  console.log(this.addTask)
 }
 
 
@@ -282,27 +224,16 @@ fixingCode(newTask:Task){
       this.toDate = new Date(date.year, date.month - 1, date.day);
       this.hidden = true;
       this.selected = this.fromDate.toLocaleDateString() + '-' + this.toDate.toLocaleDateString();
-
       this.datetask=this.selected.split("-",2)
-
-     // console.log(this.datetask[0])
-      console.log(this.description)
-
       this.dateRangeSelected.emit({ fromDate: this.fromDate, toDate: this.toDate });
-
       this.fromDate = null;
       this.toDate = null;
       this.fromNGDate = null;
       this.toNGDate = null;
-
-
-
     } else {
       this.fromNGDate = date;
       this.fromDate = new Date(date.year, date.month - 1, date.day);
       this.selected = '';
-
-
     }
   }
 
@@ -334,9 +265,9 @@ fixingCode(newTask:Task){
 
 
 
-  getProjectSU(){
+   /* getProjectSU(){
     this.projects 
-       /*   if(this.userActuel.role=="SU"){ */
+        if(this.userActuel.role=="SU"){ */
       /*  let i=[];
         this.projects.map((item)=>{
          if(item.assigned_to.find(u=>u.id==this.userActuel.id)){
@@ -344,12 +275,7 @@ fixingCode(newTask:Task){
          }  
   
          for(let j=0;j<i.length;j++){ this.projectsSu.push(this.projects[j])}
-     }) */
-  
-  
-  
-  }
-
+     })   }*/
 
 
 

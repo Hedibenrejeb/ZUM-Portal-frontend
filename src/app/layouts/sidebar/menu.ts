@@ -511,7 +511,7 @@ export const MENU: MenuItem[] = [
         label: 'MENUITEMS.COMPONENTS.TEXT',
         isTitle: true
     }, */
-    /* {
+    {
         id: 81,
         label: 'MENUITEMS.UIELEMENTS.TEXT',
         icon: 'bx-tone',
@@ -631,7 +631,7 @@ export const MENU: MenuItem[] = [
                 parentId: 81
             },
         ]
-    }, *//*
+    },/*
     {
         id: 100,
         label: 'MENUITEMS.FORMS.TEXT',

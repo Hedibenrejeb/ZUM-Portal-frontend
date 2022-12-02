@@ -4,74 +4,78 @@
   <app-page-title title="Task List" [breadcrumbItems]="breadCrumbItems"></app-page-title>
   <!-- end page title -->
 
- 
+
   <div class="row">
     <div class="col-lg-8">
       <div class="card">
         <div class="card-body">
           <div class="d-flex align-items-start">
             <h4 class="card-title mb-4">Upcoming</h4>
-          
-            <button class="btn btn-success ms-auto"  [routerLink]="['/p/tasks/create']">Add Task</button>
+
+            <button class="btn btn-success ms-auto" [routerLink]="['/p/tasks/create']">Add Task</button>
           </div>
-          
+
 
 
           <div class="table-responsive">
             <table class="table table-nowrap align-middle mb-0">
               <thead>
                 <tr>
-                   
-                    <th scope="col">Name</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Start Date</th>
-                    <th scope="col">Due Date</th>
-                    <th scope="col" style="width: 200px;">Action</th>
-                </tr>
-            </thead>
 
-            <tbody  >
-           
-              <tr *ngFor="let task of tasksUnstarted">
-                 
+                  <th scope="col">Name</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">Due Date</th>
+                  <th scope="col" style="width: 200px;">Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <tr *ngFor="let task of tasksUnstarted">
+
                   <td><a href="#" class="text-body">{{task.name}}</a></td>
                   <td>
-                  <div >  <span class="badge badge-soft-secondary mb-0" [ngClass]="{
+                    <div> <span class="badge badge-soft-secondary mb-0" [ngClass]="{
                       'badge-soft-secondary': task.status === 'UNSTARTED'}">{{task.status}}</span>
-                  </div> </td>
-                  
+                    </div>
+                  </td>
+
                   <td>{{task.startdate}}</td>
                   <td>{{task.enddate}}</td>
                   <td>
-                      <ul class="list-inline mb-0">
-                        <li class="list-inline-item"  (click)="detailTask(task,scrollDataModal)">
-                          <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="detail" class="px-2 text-warning"> 
-                            <i class="fa fa-search-plus text-warning font-size-14"></i>
-                           </a>
-                         </li>
-                          <li class="list-inline-item" (click)="updateTask(task.id)">
-                              <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary" ><i class="bx bx-pencil font-size-18"></i></a>
-                          </li>
-                          <li class="list-inline-item" (click)="onSelectTask(task);deleteMD(deleteModal)">
-                              <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
-                          </li>
-                          
-                      </ul>
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item" (click)="detailTask(task,scrollDataModal)">
+                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="detail"
+                          class="px-2 text-warning">
+                          <i class="fa fa-search-plus text-warning font-size-14"></i>
+                        </a>
+                      </li>
+                      <li class="list-inline-item" (click)="updateMD(task,updateModal)">
+                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"
+                          class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
+                      </li>
+                      <li class="list-inline-item" (click)="onSelectTask(task);deleteMD(deleteModal)">
+                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"
+                          class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
+                      </li>
+
+                    </ul>
                   </td>
-              </tr>
-             
-          </tbody>
+                </tr>
+
+              </tbody>
 
             </table>
           </div>
 
-          
+
         </div>
       </div>
 
 
 
-      
+
 
 
 
@@ -80,54 +84,58 @@
         <div class="card-body">
           <div class="d-flex align-items-start">
             <h4 class="card-title mb-4">In Progress</h4>
-            <button class="btn btn-success ms-auto"  [routerLink]="['/p/tasks/create']">Add Task</button>
+            <button class="btn btn-success ms-auto" [routerLink]="['/p/tasks/create']">Add Task</button>
           </div>
 
           <div class="table-responsive">
             <table class="table table-nowrap align-middle mb-0">
               <thead>
                 <tr>
-                   
-                    <th scope="col">Name</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Start Date</th>
-                    <th scope="col">Due Date</th>
-                    <th scope="col" style="width: 200px;">Action</th>
-                </tr>
-            </thead>
 
-            <tbody>
-              <tr *ngFor="let task of tasksInprogress">
-                 
+                  <th scope="col">Name</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">Due Date</th>
+                  <th scope="col" style="width: 200px;">Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let task of tasksInprogress">
+
                   <td><a href="#" class="text-body">{{task.name}}</a></td>
- 
+
                   <td>
-                  <div >
-                    <span class="badge badge-soft-info mb-0" [ngClass]="{
+                    <div>
+                      <span class="badge badge-soft-info mb-0" [ngClass]="{
                       'badge-soft-info': task.status === 'INPROGRESS'}">{{task.status}}</span>
-                  </div> </td>
-                  
+                    </div>
+                  </td>
+
                   <td>{{task.startdate}}</td>
                   <td>{{task.enddate}}</td>
                   <td>
-                      <ul class="list-inline mb-0">
-                        <li class="list-inline-item"(click)="detailTask(task,scrollDataModal)">
-                          <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="detail" class="px-2 text-warning"> 
-                            <i class="fa fa-search-plus text-warning font-size-14"></i>
-                           </a>
-                         </li>
-                          <li class="list-inline-item" (click)="updateTask(task.id)">
-                              <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary" ><i class="bx bx-pencil font-size-18"></i></a>
-                          </li>
-                          <li class="list-inline-item"(click)="onSelectTask(task);deleteMD(deleteModal)">
-                              <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
-                          </li>
-                          
-                      </ul>
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item" (click)="detailTask(task,scrollDataModal)">
+                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="detail"
+                          class="px-2 text-warning">
+                          <i class="fa fa-search-plus text-warning font-size-14"></i>
+                        </a>
+                      </li>
+                      <li class="list-inline-item" (click)="getUpdateTask(task.id)">
+                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"
+                          class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
+                      </li>
+                      <li class="list-inline-item" (click)="onSelectTask(task);deleteMD(deleteModal)">
+                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"
+                          class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
+                      </li>
+
+                    </ul>
                   </td>
-              </tr>
-             
-          </tbody>
+                </tr>
+
+              </tbody>
 
             </table>
           </div>
@@ -139,55 +147,61 @@
         <div class="card-body">
           <div class="d-flex align-items-start">
             <h4 class="card-title mb-4">Completed</h4>
-            <button class="btn btn-success ms-auto"  [routerLink]="['/p/tasks/create']">Add Task</button>
+            <button class="btn btn-success ms-auto" [routerLink]="['/p/tasks/create']">Add Task</button>
           </div>
           <div class="table-responsive">
+            <div class="scroller">
+
             <table class="table table-nowrap align-middle mb-0">
               <thead>
                 <tr>
-                   
-                    <th scope="col">Name</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Start Date</th>
-                    <th scope="col">Due Date</th>
-                    <th scope="col" style="width: 200px;">Action</th>
-                </tr>
-            </thead>
 
-            <tbody>
-              <tr *ngFor="let task of tasksCompleted">
-                 
+                  <th scope="col">Name</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">Due Date</th>
+                  <th scope="col" style="width: 200px;">Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let task of tasksCompleted">
+
                   <td><a href="#" class="text-body">{{task.name}}</a></td>
- 
+
                   <td>
-                  <div >
-                    <span class="badge badge-soft-success mb-0" [ngClass]="{
+                    <div>
+                      <span class="badge badge-soft-success mb-0" [ngClass]="{
                       'badge-soft-success': task.status === 'COMPLETED'}">{{task.status}}</span>
-                  </div> </td>
-                  
+                    </div>
+                  </td>
+
                   <td>{{task.startdate}}</td>
                   <td>{{task.enddate}}</td>
                   <td>
-                      <ul class="list-inline mb-0">
-                        <li class="list-inline-item"  (click)="detailTask(task,scrollDataModal)">
-                          <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="detail" class="px-2 text-warning"> 
-                            <i class="fa fa-search-plus text-warning font-size-14"></i>
-                           </a>
-                         </li>
-                          <li class="list-inline-item" (click)="updateTask(task.id)">
-                              <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary" ><i class="bx bx-pencil font-size-18"></i></a>
-                          </li>
-                          <li class="list-inline-item"(click)="onSelectTask(task);deleteMD(deleteModal)">
-                              <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
-                          </li>
-                          
-                      </ul>
-                  </td>
-              </tr>
-             
-          </tbody>
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item" (click)="detailTask(task,scrollDataModal)">
+                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="detail"
+                          class="px-2 text-warning">
+                          <i class="fa fa-search-plus text-warning font-size-14"></i>
+                        </a>
+                      </li>
+                      <li class="list-inline-item" (click)="getUpdateTask(task.id)">
+                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"
+                          class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
+                      </li>
+                      <li class="list-inline-item" (click)="onSelectTask(task);deleteMD(deleteModal)">
+                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"
+                          class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
+                      </li>
 
-            </table>
+                    </ul>
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table></div>
           </div>
         </div>
       </div>
@@ -198,53 +212,58 @@
         <div class="card-body">
           <div class="d-flex align-items-start">
             <h4 class="card-title mb-4">Cancel</h4>
-            <button class="btn btn-success ms-auto"  [routerLink]="['/p/tasks/create']">Add Task</button>
+            <button class="btn btn-success ms-auto" [routerLink]="['/p/tasks/create']">Add Task</button>
           </div>
           <div class="table-responsive">
+            
             <table class="table table-nowrap align-middle mb-0">
               <thead>
                 <tr>
-                   
-                    <th scope="col">Name</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Start Date</th>
-                    <th scope="col">Due Date</th>
-                    <th scope="col" style="width: 200px;">Action</th>
-                </tr>
-            </thead>
 
-            <tbody>
-              <tr *ngFor="let task of tasksCancel">
-                 
+                  <th scope="col">Name</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">Due Date</th>
+                  <th scope="col" style="width: 200px;">Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let task of tasksCancel">
+
                   <td><a href="#" class="text-body">{{task.name}}</a></td>
- 
+
                   <td>
-                  <div >
-                    <span class="badge badge-soft-danger mb-0" [ngClass]="{
+                    <div>
+                      <span class="badge badge-soft-danger mb-0" [ngClass]="{
                       'badge-soft-danger': task.status === 'CANCEL'}">{{task.status}}</span>
-                  </div> </td>
-                  
+                    </div>
+                  </td>
+
                   <td>{{task.startdate}}</td>
                   <td>{{task.enddate}}</td>
                   <td>
-                      <ul class="list-inline mb-0">
-                        <li class="list-inline-item" (click)="detailTask(task,scrollDataModal)">
-                          <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="detail" class="px-2 text-warning"> 
-                            <i class="fa fa-search-plus text-warning font-size-14"></i>
-                           </a>
-                         </li>
-                          <li class="list-inline-item" (click)="updateTask(task.id)">
-                              <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit" class="px-2 text-primary" ><i class="bx bx-pencil font-size-18"></i></a>
-                          </li>
-                          <li class="list-inline-item"(click)="onSelectTask(task);deleteMD(deleteModal)">
-                              <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete" class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
-                          </li>
-                          
-                      </ul>
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item" (click)="detailTask(task,scrollDataModal)">
+                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="detail"
+                          class="px-2 text-warning">
+                          <i class="fa fa-search-plus text-warning font-size-14"></i>
+                        </a>
+                      </li>
+                      <li class="list-inline-item" (click)="getUpdateTask(task.id)">
+                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"
+                          class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
+                      </li>
+                      <li class="list-inline-item" (click)="onSelectTask(task);deleteMD(deleteModal)">
+                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"
+                          class="px-2 text-danger"><i class="bx bx-trash-alt font-size-18"></i></a>
+                      </li>
+
+                    </ul>
                   </td>
-              </tr>
-             
-          </tbody>
+                </tr>
+
+              </tbody>
 
             </table>
           </div>
@@ -252,13 +271,13 @@
         </div>
       </div>
 
-      
-     
+
+
     </div>
 
 
 
-  
+
     <!-- end col -->
 
     <div class="col-lg-4">
@@ -409,10 +428,10 @@
       <div class="card-body">
         <div class="row">
           <div class="col-12 col-sm-auto ">
-            
+
           </div>
           <div class="col d-flex flex-column flex-sm-row justify-content-between ">
-            <div class="text-left text-sm-left  mb-sm-0"   *ngIf="selectTask.creator" >
+            <div class="text-left text-sm-left  mb-sm-0" *ngIf="selectTask.creator">
 
               <h5 class="pt-sm-2 pb-1 mb-0 text-nowrap"><i class="fas fa-user-shield">
                   Created
@@ -437,7 +456,7 @@
 
             <div class="text-center text-sm-right">
 
-              
+
 
               <div *ngIf="selectTask.startdate" class="text-muted">
                 <small> Start Date :
@@ -454,15 +473,15 @@
                   {{selectTask.enddate|date:'shortDate'
                   }}</small></div>
 
-                  <div *ngIf="selectTask.createdate" class="text-muted">
-                    <small> Creation Date :
-                    </small>
-                  </div>
-                  <div *ngIf="selectTask.createdate" class="text-muted">
-                    <small>
-                      {{selectTask.createdate | date:'shortDate'
-                      }}</small>
-                  </div>
+              <div *ngIf="selectTask.createdate" class="text-muted">
+                <small> Creation Date :
+                </small>
+              </div>
+              <div *ngIf="selectTask.createdate" class="text-muted">
+                <small>
+                  {{selectTask.createdate | date:'shortDate'
+                  }}</small>
+              </div>
               <div *ngIf="selectTask.updatedate" class="text-muted"><small>Last Updated Date
                 </small></div>
               <div *ngIf="selectTask.updatedate" class="text-muted"><small>
@@ -473,7 +492,7 @@
         </div>
       </div>
 
-      <ul class="list-group list-group-flush"   *ngIf="selectTask.project" >
+      <ul class="list-group list-group-flush" *ngIf="selectTask.project">
         <li class="list-group-item"></li>
         <li class="list-group-item">
           <i class="fas fa-folder-open"> Project Name :
@@ -496,14 +515,14 @@
           </i>
         </li>
 
-        <li class="list-group-item"   *ngIf="selectTask.affectedTo" >
+        <li class="list-group-item" *ngIf="selectTask.affectedTo">
           <i class="fas fa-user-tie ">Affected TO : {{selectTask.affectedTo.email}} </i>
         </li>
-       <!--  <li class="list-group-item">
+        <!--  <li class="list-group-item">
           <i class="fas fa-users "> Participants : </i>
         </li> -->
 
-       <!--  <div class="col-lg-7" id="cluster_info">
+        <!--  <div class="col-lg-7" id="cluster_info">
           <dl class="">
             <dd class="project-people">
               <a href="">{{selectTask.affectedTo.firstname}}</a>
@@ -522,11 +541,193 @@
 
   </div>
 
+  
 
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
   </div>
 </ng-template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <button  type="button" class="btn btn-secondary" (click)="updateMD(updateModal)"> update  </button>
+ -->
+
+
+
+<!--  update task -->
+
+<ng-template #updateModal let-modal>
+  <div class="modal-header" *ngIf="selectTask">
+    <h5 class="modal-title mt-0"> <i class="fas fa-money-check"></i>Update Task</h5>
+  
+    <button type="button" class="btn-close"  id="update-close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+
+          <form #editTaskForm="ngForm"   (ngSubmit)="updateNewTask(editTaskForm.value)" >
+
+            <div class="form-group">
+                <label for="name"> Task Name</label>
+                <input type="text" name="name" required [(ngModel)]="editTask.name"
+                class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="desc"> Description</label>
+                <input type="text" name="description" required [(ngModel)]="editTask.description"
+                    class="form-control">
+            </div>
+            
+           
+
+            <div class="form-group">
+              <label for="project">Project: {{editTask.project.name}} </label>
+              <select name="project" required [(ngModel)]="editTask.project" (change)="selectedProject(editTask.project)" class="form-control">
+
+                <option *ngFor="let projet of projects" [ngValue]=projet >{{projet.name}} </option>
+
+              </select>
+
+          </div>
+            <div class="form-group">
+                <label for="affectedTo">Member: {{editTask.affectedTo.email}} </label>
+                <select name="affectedTo" required [(ngModel)]="editTask.affectedTo" class="form-control">
+                    <!-- <option [ngValue]=editTask.affectedTo >{{editTask.affectedTo.email}}</option> -->
+
+                    <option *ngFor="let member of members" [ngValue]=member>{{member.email}}</option>
+
+                </select>
+
+            </div>
+
+
+
+
+            <!-- [hidden]="editTask.status=='INPROGRESS'? 'true':'false' " -->
+            
+            <div class="form-group">
+                <label for="taskstatus">Task status</label>
+                <select name="taskstatus" required [(ngModel)]="editTask.status" type="text" class="form-control">
+
+                  <option [ngValue]=editTask.status selected>{{editTask.status}} </option>
+                  <option value="INPROGRESS"  > IN PROGRESS
+                  </option>
+                  <option value="COMPLETED" >COMPLETED
+                  </option>
+                  <option value="UNSTARTED"  >UNSTARTED
+                  </option>
+                  <option value="CANCEL"  >CANCEL
+                  </option>
+                </select>
+            </div>
+
+
+
+
+          <!--   <div class="form-group">
+                <label for="taskCreePar"> Created By </label>
+                <input type="text" name="taskCreePar" required [disabled]="!isAdminOrScrumMasterOrChef"
+                    [(ngModel)]="editTask.taskCreePar.username" class="form-control">
+            </div>
+
+            <fieldset class="form-group">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="checkbox" name="archive" [(ngModel)]="editTask.archive"
+                            [disabled]="!isAdminOrScrumMasterOrChef" class="form-check-input">Archive
+                    </label>
+                </div>
+
+            </fieldset> -->
+
+
+            <div class="form-group">
+              <label for="selected" class="col-form-label col-lg-2">Task Date</label>
+
+            <div class="row xs-2">
+              <div class="col-lg-12">
+                <ng-template #t let-date let-focused="focused" >
+                  <span class="custom-day"[class.focused]="focused" [class.range]="isRange(date)"
+                    [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
+                    (mouseleave)="hoveredDate = null">
+                    {{ date.day }}
+                  </span>
+                </ng-template>
+                <input type="text" class="form-control date" (click)="hidden=!hidden" name="daterange"
+                  autocomplete="off" required name="selected" [(ngModel)]="selected" />
+                <ngb-datepicker  #dp (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t"
+                  outsideDays="hidden" [hidden]="hidden">
+                </ngb-datepicker>
+              </div>
+
+            </div>
+            </div>
+         
+              
+        </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" (click)="updateNewTask(editTaskForm.value)"  [disabled]="editTaskForm.invalid"
+    class="btn btn-primary" > Save changes
+</button>
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+
+
+
+
+
+
+
 
 
 
@@ -559,8 +760,7 @@
 <ng-template #content role="document" let-modal>
   <div class="modal-header">
     <h5 class="modal-title mt-0">Add Customer</h5>
-    <button type="button" class="btn-close" aria-hidden="true"
-      (click)="modal.dismiss('Cross click')"></button>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
     <form (ngSubmit)="listData()" [formGroup]="formData">
@@ -576,8 +776,8 @@
           </div>
           <div class="mb-3">
             <label class="control-label">Task title</label>
-            <input class="form-control" placeholder="Enter title" type="text" name="title"
-              formControlName="name" [ngClass]="{'is-invalid': submitted && form.name.errors}" />
+            <input class="form-control" placeholder="Enter title" type="text" name="title" formControlName="name"
+              [ngClass]="{'is-invalid': submitted && form.name.errors}" />
             <div *ngIf="submitted && form.name.errors" class="invalid-feedback">
               <span *ngIf="form.name.errors.required">Name is required.</span>
             </div>
@@ -586,8 +786,7 @@
             <label for="file">File</label>
             <input formControlName="file" id="file" type="file" multiple class="form-control"
               (change)="onFileChange($event)">
-            <div *ngIf="submitted && form.file.touched && submitted && form.file.invalid"
-              class="alert alert-danger">
+            <div *ngIf="submitted && form.file.touched && submitted && form.file.invalid" class="alert alert-danger">
               <div *ngIf="submitted && form.file.errors.required">File is required.</div>
             </div>
           </div>
