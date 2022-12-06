@@ -56,13 +56,11 @@ userActuel:User;
   public getTasks(): void {
     this.taskServ.listTask().subscribe(
       (response:Task[]) => {
-           console.log("refresh after delete")
-         console.log(response)
-         console.log(this.userActuel.id)
-         console.log(response.filter(t=>t.affectedTo.id==this.userActuel.id))
+       
+   
+        //  console.log(response.filter(t=>t.affectedTo.id==this.userActuel.id))
 
          this.tasks=response.filter(t=>t.affectedTo.id==this.userActuel.id);
-        console.log(this.tasks)
         if(this.tasks){
 
          this.tasksInprogress=this.tasks.filter(t=>t.status=="INPROGRESS");
@@ -70,10 +68,7 @@ userActuel:User;
          this.tasksUnstarted=this.tasks.filter(t=>t.status=="UNSTARTED");
          this.tasksCancel=this.tasks.filter(t=>t.status=="CANCEL");
          
-         console.log("tasks Progress",this.tasksInprogress )
-         console.log("tasks completed",this.tasksCompleted )
-         console.log("tasks unstarted",this.tasksUnstarted )
-         console.log("tasks cancel",this.tasksCancel )  } 
+         } 
            
       }, (errorResponse: HttpErrorResponse) => {
         console.log(errorResponse);
@@ -88,15 +83,10 @@ userActuel:User;
 
   onSelectTask(task:Task){
     this.selectedTask=task
-    console.log( "selected task ",this.selectedTask)
   }
   onEditTask(task:Task){
       this.id = task.id;
-      console.log("id of task selected ", this.id)
       this.router.navigate(['/p/tasks/updateTask/', this.id])
-    
-  
-    console.log("on edit task ")
 
   }
    /**
@@ -114,14 +104,11 @@ userActuel:User;
 
   onDeleteTask(idtask:number){
 
-    console.log( "deleted task ",idtask)
-    console.log(this.selectedTask.creator.id)
-    console.log(idtask)
+ 
     if(this.selectedTask.creator.id==this.userActuel.id){
     this.taskServ.deleteTask(idtask).subscribe(()=>{
     this.getTasks();
 
-    console.log("delete succussfuly")
   
     this.clickButton('delete-close');
 
@@ -184,10 +171,7 @@ userActuel:User;
 
  public getTaskuser(){
   this.taskServ.listTaskByAffectedTo(this.userActuel.id).subscribe((response:Task[])=>{
-    console.log("affected to id ")
     this.taskss = response['results'];
-    console.log(this.taskss)
-
     
   }, (errorResponse: HttpErrorResponse) => {
     console.log(errorResponse);

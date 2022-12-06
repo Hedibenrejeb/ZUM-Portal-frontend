@@ -122,7 +122,7 @@
                           <i class="fa fa-search-plus text-warning font-size-14"></i>
                         </a>
                       </li>
-                      <li class="list-inline-item" (click)="getUpdateTask(task.id)">
+                      <li class="list-inline-item" (click)="updateMD(task,updateModal)">
                         <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"
                           class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
                       </li>
@@ -186,7 +186,7 @@
                           <i class="fa fa-search-plus text-warning font-size-14"></i>
                         </a>
                       </li>
-                      <li class="list-inline-item" (click)="getUpdateTask(task.id)">
+                      <li class="list-inline-item" (click)="updateMD(task,updateModal)">
                         <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"
                           class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
                       </li>
@@ -250,7 +250,7 @@
                           <i class="fa fa-search-plus text-warning font-size-14"></i>
                         </a>
                       </li>
-                      <li class="list-inline-item" (click)="getUpdateTask(task.id)">
+                      <li class="list-inline-item" (click)="updateMD(task,updateModal)">
                         <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"
                           class="px-2 text-primary"><i class="bx bx-pencil font-size-18"></i></a>
                       </li>
@@ -639,21 +639,7 @@
 
 
 
-          <!--   <div class="form-group">
-                <label for="taskCreePar"> Created By </label>
-                <input type="text" name="taskCreePar" required [disabled]="!isAdminOrScrumMasterOrChef"
-                    [(ngModel)]="editTask.taskCreePar.username" class="form-control">
-            </div>
-
-            <fieldset class="form-group">
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="checkbox" name="archive" [(ngModel)]="editTask.archive"
-                            [disabled]="!isAdminOrScrumMasterOrChef" class="form-check-input">Archive
-                    </label>
-                </div>
-
-            </fieldset> -->
+       
 
 
             <div class="form-group">

@@ -54,15 +54,12 @@ public addUsersToLocalCache(users:User[]):void{
   public logout():void{
 this.token = null;
 this.loggedInUsername=null;
-console.log("logout")
+//console.log("logout")
 localStorage.removeItem('user');
 localStorage.removeItem('token');
 localStorage.removeItem('users');
 localStorage.removeItem('projects');
-/*localStorage.removeItem('sprints');
-localStorage.removeItem('tasks');
-localStorage.removeItem('msgs');
-localStorage.removeItem('liste Msg'); */
+
 
 
 
@@ -71,7 +68,7 @@ localStorage.removeItem('liste Msg'); */
 
 public saveToken(token:string):void{
   this.token=token;
-  console.log(this.token)
+ //console.log(this.token)
 
   localStorage.setItem('token',token);
   

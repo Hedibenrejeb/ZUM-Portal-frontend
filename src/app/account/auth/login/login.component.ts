@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit {
     private authFackservice: AuthfakeauthenticationService) { }
 
   ngOnInit() {
-    console.log(this.year)
     this.loginForm = this.formBuilder.group({
       email: ['user@zum-it.com', [Validators.required, Validators.email]],
       password: ['123456', [Validators.required]],
@@ -71,11 +70,9 @@ export class LoginComponent implements OnInit {
    */
    onCanSee(){
     this.see=!this.see
-    //console.log(this.see)
     if (this.see==true) {
       this.typeSee='text'
     }else this.typeSee='password'
-    //console.log(this.pass)
    return this.pass
    }
 
@@ -83,7 +80,6 @@ export class LoginComponent implements OnInit {
 
   onLogin(user:User):void {
     this.submitted = true;
-    // console.log(user)
     this.pass=user['password']
     // stop here if form is invalid
     if (this.loginForm.invalid) {
@@ -92,7 +88,6 @@ export class LoginComponent implements OnInit {
       this.subscriptions.push(
         this.authenticationService.login1(user).subscribe(
           (response:HttpResponse<User>)=>{
-            console.log(response);
            // console.log(response.body['tokens'])
        // const token =response.headers.get(HeaderType.JWT_TOKEN);
          //  const token=response.body['tokens']['token']['access']
