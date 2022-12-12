@@ -31,8 +31,21 @@ export class UserProfileService {
         return this.http.post(`${this.host}/auth/register-user/`, user);
     }
 
-    update(user: any): Observable<any> {
-        return this.http.put(`${this.host}/auth/updateUser/`+ user.id, user);
+    updateProfile(user: any): Observable<any> {
+        return this.http.put(`${this.host}/auth/UpdateProfile/`+ user.id, user);
     }
 
+    update(user: any): Observable<any> {
+        return this.http.put(`${this.host}/auth/updateafterregister/`+ user.id, user);
+    }
+
+    SavePhoto(photo,userId): Observable<any> {
+        let formData = new FormData();
+        console.log("*formData1111",formData)
+        formData.append('photo',photo);
+        formData.append('id',userId);
+        console.log("*user.id*",userId)
+        console.log("*formData2222",formData)
+        return this.http.post(`${this.host}/auth/SavePhoto/`+userId, formData);
+      }
 }

@@ -35,6 +35,9 @@ export class ProfileComponent implements OnInit {
   userid;
   fileToUpload: File = null;
   somme: number;
+  pathfile;
+  savedFile;
+  photo;
 
 
 
@@ -51,6 +54,7 @@ export class ProfileComponent implements OnInit {
         email: new FormControl(['', Validators.required,]),
         Location: new FormControl(['', Validators.required,]),
         Experience: new FormControl(['', Validators.required,]),
+        photo: new FormControl(['', Validators.required,]),
       });
     }
 
@@ -79,6 +83,7 @@ export class ProfileComponent implements OnInit {
       email: [user.email, Validators.required],
       Location: [user.Location, Validators.required],
       Experience: [user.Experience, Validators.required],
+      photo:[user.photo ,Validators.required],
     })
     console.log('user.firstname', user.firstname)
     console.log('formUpdate', this.formUpdate)
@@ -125,13 +130,18 @@ export class ProfileComponent implements OnInit {
         'Location': this.f.Location.value,
         'Experience': this.f.Experience.value,
         'email': this.f.email.value,
+        'photo':this.saveImage(this.userid),
       }
       console.log('usertoUpdate', usertoUpdate)
-    this.UserProfileService.update(usertoUpdate).subscribe(
+      console.log('this.fileToUpload', this.fileToUpload)
+
+    this.UserProfileService.updateProfile(usertoUpdate).subscribe(
       data => {
         this.user= data
-        console.log('this.userbackend', this.user);
+        console.log('this.userbackend', data);
         this.getUserById(this.userid);
+        console.log('this.getUserById(this.userid)', this.getUserById(this.userid));
+
       })
       this.modalService.dismissAll();
     }
@@ -145,7 +155,24 @@ export class ProfileComponent implements OnInit {
   get f() {
     return this.formUpdate.controls;
   }
-  handleImageCandidatInput(files: FileList) {
+  saveImage(id) {
+    console.log("*image******",this.fileToUpload)
+    this.UserProfileService.SavePhoto(this.fileToUpload,id).subscribe(result => {
+      console.log("*imageresult*verif",result)
+      if (result != null) {
+        this.pathfile = result;
+        this.savedFile = true;
+      }
+      console.log("*imageresult*verif",result)
+
+    }, error => {
+      this.pathfile = null;
+      this.savedFile = false;
+    });
+  }
+
+  handleImageInput(files: FileList) {
     this.fileToUpload = files.item(0);
+    console.log("*image",this.fileToUpload)
   }
 }
