@@ -89,7 +89,6 @@ export class ProjectlistComponent implements OnInit {
   public getListProjectByUser(userId: any) {
     this.projectService.getListProjectByUser(userId).subscribe(result => {
       this.listProjectByUser = result.results;
-      console.log('this.listProjectByUser', this.listProjectByUser);
     });
   }
   getAll() {
@@ -188,7 +187,6 @@ export class ProjectlistComponent implements OnInit {
         'end_date': this.projectToUpdate.end_date
       }
        
-      console.log("projecttoUpdate", projecttoUpdate)
         this.projectservice.updateproject(projecttoUpdate).subscribe(result => {
         this.projectUpdated = true;
         this.getAll();

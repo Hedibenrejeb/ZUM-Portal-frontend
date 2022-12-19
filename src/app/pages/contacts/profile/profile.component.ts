@@ -1,9 +1,11 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FileUploadStatus } from 'src/app/core/models/FileUploadStatus';
 import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { ProjectService } from 'src/app/core/services/project.service';
 import { UserProfileService } from 'src/app/core/services/user.service';
+import { environment } from 'src/environments/environment';
 import { Usergrid } from '../usergrid/usergrid.model';
 
 import { revenueBarChart, statData } from './data';
@@ -33,20 +35,24 @@ export class ProfileComponent implements OnInit {
   submitted = false;
   hidden: boolean;
   userid;
-  fileToUpload: File = null;
+  fileToUpload: File;
   somme: number;
   pathfile;
   savedFile;
   photo;
-
-
-
-
+  url ;
+  userImage;
+  public fileStatus= new FileUploadStatus();
+  usertest :any;
+  userList;
+  public host = environment.apiUrl;
+  userphoto;
 
 
   constructor(private projectService: ProjectService,private authServ: AuthenticationService,
     private UserProfileService: UserProfileService,private modalService: NgbModal,
-    private formBuilder: FormBuilder,) { 
+    private formBuilder: FormBuilder,) 
+    { 
       this.formUpdate = new FormGroup({
         firstname: new FormControl('', [Validators.required]),
         lastname: new FormControl(['', Validators.required,]),
@@ -54,39 +60,35 @@ export class ProfileComponent implements OnInit {
         email: new FormControl(['', Validators.required,]),
         Location: new FormControl(['', Validators.required,]),
         Experience: new FormControl(['', Validators.required,]),
-        photo: new FormControl(['', Validators.required,]),
       });
     }
 
-  ngOnInit() {
+  ngOnInit(){
     this.userId = this.authServ.getUserFromLocalCache().id;
     this.userid = this.authServ.getUserFromLocalCache().id;
-    this.getListProjectByUser(this.userId)
-    this.getallusers()
-    this.getUserById(this.userId)
+    this.getListProjectByUser(this.userId);
+    this.getallusers();
+    this.getUserById(this.userId);
+    // this.userImage=`${this.host}`+this.authServ.getUserFromLocalCache().photo;
     this.breadCrumbItems = [{ label: 'Contacts' }, { label: 'Profile', active: true }];
-    
-    // fetches the data
     this._fetchData();
   }
+
+
   openModal2(template: TemplateRef<any>) {
     this.modalService.open(template, { size: 'lg' });
   }
 
-  openUpdateModal(template: TemplateRef<any>,user) {/* 2022/mm/dd */
+  openUpdateModal(template: TemplateRef<any>,data) {/* 2022/mm/dd */
     this.openModal2(template);
-    console.log('user', user)
     this.formUpdate = this.formBuilder.group({
-      firstname: [user.firstname, Validators.required,],
-      lastname: [user.lastname, Validators.required,],
-      Mobile: [user.Mobile, Validators.required],
-      email: [user.email, Validators.required],
-      Location: [user.Location, Validators.required],
-      Experience: [user.Experience, Validators.required],
-      photo:[user.photo ,Validators.required],
+      firstname: [data.firstname, Validators.required,],
+      lastname: [data.lastname, Validators.required,],
+      Mobile: [data.Mobile, Validators.required],
+      email: [data.email, Validators.required],
+      Location: [data.Location, Validators.required],
+      Experience: [data.Experience, Validators.required],
     })
-    console.log('user.firstname', user.firstname)
-    console.log('formUpdate', this.formUpdate)
   }
   /**
    * Fetches the data
@@ -105,9 +107,11 @@ export class ProfileComponent implements OnInit {
 
   public getUserById(userId: any) {
     this.UserProfileService.getUserById(userId).subscribe(result => {
-      this.user = result.results;
-      console.log('this.user*********', this.user);
-    });
+      this.user = result;
+      console.log("cccccccc123ccc",result)
+      console.log("ccccccccccc",this.user)
+    }
+    );
   }
 
   getallusers() {
@@ -116,33 +120,30 @@ export class ProfileComponent implements OnInit {
         let listUser = data;
         this.userGridData =data['results'];
         console.log('data*******', this.userGridData);
-        this.userId = this.userGridData;
+        this.userList = this.userGridData;
       })
   }
 
   updateProfile(){
     if (this.formUpdate.valid) {
       let usertoUpdate = {
-        'id': this.userid,
+        'id': this.userId,
         'firstname': this.f.firstname.value,
         'lastname': this.f.lastname.value,
         'Mobile': this.f.Mobile.value,
         'Location': this.f.Location.value,
         'Experience': this.f.Experience.value,
         'email': this.f.email.value,
-        'photo':this.saveImage(this.userid),
       }
       console.log('usertoUpdate', usertoUpdate)
-      console.log('this.fileToUpload', this.fileToUpload)
-
-    this.UserProfileService.updateProfile(usertoUpdate).subscribe(
+    this.UserProfileService.UpdateProfile(usertoUpdate).subscribe(
       data => {
         this.user= data
-        console.log('this.userbackend', data);
-        this.getUserById(this.userid);
-        console.log('this.getUserById(this.userid)', this.getUserById(this.userid));
-
-      })
+        this.userphoto=data.photo
+        console.log('this.userbackendaftersave', data);
+        this.getUserById(this.userId); 
+      }
+      ) 
       this.modalService.dismissAll();
     }
   }
@@ -155,24 +156,20 @@ export class ProfileComponent implements OnInit {
   get f() {
     return this.formUpdate.controls;
   }
-  saveImage(id) {
-    console.log("*image******",this.fileToUpload)
-    this.UserProfileService.SavePhoto(this.fileToUpload,id).subscribe(result => {
-      console.log("*imageresult*verif",result)
-      if (result != null) {
-        this.pathfile = result;
-        this.savedFile = true;
+ 
+
+
+
+  onSelectFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        this.url = event.target.result;
       }
-      console.log("*imageresult*verif",result)
-
-    }, error => {
-      this.pathfile = null;
-      this.savedFile = false;
-    });
+      this.UserProfileService.updateProfileAvatar(event.target.files[0],this.userId).subscribe(data=> {
+      },err => console.log("ERRRRRr",err))
+    }
   }
 
-  handleImageInput(files: FileList) {
-    this.fileToUpload = files.item(0);
-    console.log("*image",this.fileToUpload)
-  }
 }

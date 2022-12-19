@@ -16,9 +16,10 @@ export class UserProfileService {
     getallusers(): Observable<any> {
         return this.http.get(`${this.host}/auth/list-user/`);
     }
-    getUserById(userId): Observable<any> {
+    public getUserById(userId): Observable<any> {
         return this.http.get(`${this.host}/auth/GetUserById/` + userId);
     }
+
     register(user: any): Observable<any> {
         return this.http.post(`${this.host}/auth/register-user/`, user);
     }
@@ -31,7 +32,7 @@ export class UserProfileService {
         return this.http.post(`${this.host}/auth/register-user/`, user);
     }
 
-    updateProfile(user: any): Observable<any> {
+    UpdateProfile(user: any): Observable<any> {
         return this.http.put(`${this.host}/auth/UpdateProfile/`+ user.id, user);
     }
 
@@ -39,13 +40,20 @@ export class UserProfileService {
         return this.http.put(`${this.host}/auth/updateafterregister/`+ user.id, user);
     }
 
-    SavePhoto(photo,userId): Observable<any> {
+    SavePhoto(file,userId): Observable<any> {
         let formData = new FormData();
-        console.log("*formData1111",formData)
-        formData.append('photo',photo);
+        formData.append('file',file);
         formData.append('id',userId);
-        console.log("*user.id*",userId)
         console.log("*formData2222",formData)
         return this.http.post(`${this.host}/auth/SavePhoto/`+userId, formData);
+      }
+
+
+    updateProfileAvatar(photo,userId):Observable<any>{
+        console.log("*userIdphoto",userId)
+        const formData = new FormData();
+        formData.append('photo', photo);
+        formData.append('id',userId);
+        return this.http.put(`${this.host}/auth/profileavatar/`+userId, formData)
       }
 }

@@ -8,6 +8,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { LanguageService } from '../../core/services/language.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NotificationType } from 'src/app/core/enum/notification-type.enum';
+import { UserProfileService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-topbar',
@@ -20,18 +21,21 @@ import { NotificationType } from 'src/app/core/enum/notification-type.enum';
  */
 export class TopbarComponent implements OnInit {
   username;
-
+  user;
   element;
   cookieValue;
   flagvalue;
   countryName;
   valueset;
+  userId;
 
   constructor(@Inject(DOCUMENT) private document: any, private router: Router, private authService: AuthenticationService,
               private authFackservice: AuthfakeauthenticationService,
               public languageService: LanguageService,
               public translate: TranslateService,
-              public _cookiesService: CookieService) {
+              public _cookiesService: CookieService,
+              private UserProfileService: UserProfileService,
+              private authServ: AuthenticationService,) {
   }
 
   listLang = [
@@ -48,11 +52,11 @@ export class TopbarComponent implements OnInit {
   @Output() mobileMenuButtonClicked = new EventEmitter();
 
   ngOnInit() {
-    this.username=this.authService.getUserFromLocalCache().firstname
-
+    this.userId = this.authServ.getUserFromLocalCache().id;
+    this.username=this.authService.getUserFromLocalCache().firstname;
+    this.getUserById(this.userId);
     this.openMobileMenu = false;
     this.element = document.documentElement;
-
     this.cookieValue = this._cookiesService.get('lang');
     const val = this.listLang.filter(x => x.lang === this.cookieValue);
     this.countryName = val.map(element => element.text);
@@ -63,7 +67,14 @@ export class TopbarComponent implements OnInit {
     }
   }
 
-
+  public getUserById(userId: any) {
+    this.UserProfileService.getUserById(userId).subscribe(result => {
+      this.user = result;
+      console.log("cccccccc123ccc",result)
+      console.log("ccccccccccc",this.user)
+    }
+    );
+  }
 
 
   public onLogOut(): void{

@@ -5,7 +5,8 @@ export class User {
     lastname?: string;
     email: string;
     role: string;
-    password?:string
+    password?:string;
+    photo?:string;
 
     constructor(){
 
@@ -18,6 +19,10 @@ export class User {
         this.email='';
 
         this.role='';
+
+        this.photo='';
+
+
 
     }
 

@@ -51,10 +51,10 @@ const statData = [
         icon: 'bx bx-hourglass',
         title: 'Pending Projects',
         value: '12'
-    }, {
-        icon: 'bx bx-package',
-        title: 'Total Revenue',
-        value: '$36,524'
+    // }, {
+    //     icon: 'bx bx-package',
+    //     title: 'Total Revenue',
+    //     value: '$36,524'
     }
 ];
 

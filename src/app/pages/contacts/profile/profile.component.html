@@ -18,26 +18,40 @@
         </div>
         <div class="card-body pt-0" >
           <div class="row">
-            <div class="col-sm-4" *ngFor="let data of user">
+            <!-- <div class="col-sm-4" *ngFor="let data of user">
               <div class="avatar-lg mx-auto mb-4" *ngIf="!data.image">
                 <span class="avatar-title rounded-circle bg-soft bg-primary text-primary font-size-16">
                   {{data?.firstname?.charAt(0) + data?.lastname?.charAt(0)}}
                 </span>
               </div>
                <div *ngIf="data.image" class="mb-4">
-                <img class="rounded-circle avatar-sm" src="{{data.image}}"/>
+                <img class="rounded-circle avatar-sm" src="{{data.photo}}"/>
               </div>
               <h5 class="font-size-15 text-truncate">&nbsp;&nbsp;&nbsp;&nbsp;{{data.firstname}} {{data.lastname}}</h5>
               <p class="font-size-15 text-truncate">&nbsp;&nbsp;&nbsp;&nbsp;{{data.Experience}}</p>
+            </div> -->
+
+            <div class="col-sm-4" >
+              <div class="avatar-md profile-user-wid mb-4">
+                <label class="hoverable" for="fileInput">
+                  <img class="img-thumbnail rounded-circle" src="{{user.photo}}"/> 
+                  <div class="hover-text"><i class="bx bxs-camera"> </i></div>
+                  <div class="background"></div>
+                </label>
+                <br/>
+                <input  id="fileInput" type="file" accept="image/*" (change)="onSelectFile($event)">
+              </div>
+             <h5 class="font-size-15 text-truncate">&nbsp;&nbsp;&nbsp;&nbsp;{{user.firstname}} {{user.lastname}}</h5>
+              <p class="font-size-15 text-truncate">&nbsp;&nbsp;&nbsp;&nbsp;{{user.Experience}}</p>
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-8" *ngFor="let project of projects">
               <div class="pt-4">
                 <div class="row">
                   <div class="col-3">
                   </div>
                   <div class="col-3">
                   </div>
-                  <div class="col-6" *ngFor="let project of projects">
+                  <div class="col-6" >
                     <h5 class="font-size-15">{{projects?.length}}</h5>
                     <p class="text-muted mb-0">Projects</p>
                   </div>
@@ -53,7 +67,7 @@
       </div>
       <!-- end card -->
 
-      <div class="card" >
+      <div class="card"  *ngIf="user">
         <div class="card-body">
           <h4 class="card-title mb-4">Personal Information
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -64,26 +78,26 @@
         </li>  </h4>
           <div class="table-responsive">
             <table class="table table-nowrap mb-0">
-              <tbody *ngFor="let data of user" >
+              <tbody >
                 <tr>
                   <th scope="row">Full Name :</th>
-                  <td>{{data.firstname}} {{data.lastname}}</td>
+                  <td>{{user.firstname}} {{user.lastname}}</td>
                 </tr>
                 <tr>
                   <th scope="row">Mobile :</th>
-                  <td>{{data.Mobile}}</td>
+                  <td>{{user.Mobile}}</td>
                 </tr>
                 <tr>
                   <th scope="row">E-mail :</th>
-                  <td>{{data.email}}</td>
+                  <td>{{user.email}}</td>
                 </tr>
                 <tr>
                   <th scope="row">Address :</th>
-                  <td>{{data.Location}}</td>
+                  <td>{{user.Location}}</td>
                 </tr>
                 <tr>
                   <th scope="row">Function :</th>
-                  <td>{{data.Experience}}</td>
+                  <td>{{user.Experience}}</td>
                 </tr>
               </tbody>
             </table>
@@ -91,7 +105,6 @@
         </div>
       </div>
       <!-- end card -->
-
       <!-- <div class="card">
         <div class="card-body">
           <h4 class="card-title mb-5">Skills</h4>
@@ -155,21 +168,9 @@
     </div>
 
     <div class="col-xl-8">
-
       <div class="row">
-        <div *ngFor="let stat of statData" class="col-md-4">
+        <div  class="col-md-4" *ngFor="let stat of statData" >
           <app-stat [title]="stat.title" [value]="stat.value" [icon]="stat.icon"></app-stat>
-        </div>
-
-      </div>
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title mb-4">Revenue</h4>
-          <apx-chart dir="ltr" class="apex-charts" [series]="revenueBarChart.series" [chart]="revenueBarChart.chart"
-            [xaxis]="revenueBarChart.xaxis" [colors]="revenueBarChart.colors" [yaxis]="revenueBarChart.yaxis"
-            [dataLabels]="revenueBarChart.dataLabels" [stroke]="revenueBarChart.stroke"
-            [plotOptions]="revenueBarChart.plotOptions" [fill]="revenueBarChart.fill">
-          </apx-chart>
         </div>
       </div>
 
@@ -291,7 +292,7 @@
             <div *ngIf="f.Experience.errors.pattern">This value should be a valid Experience</div>
           </div>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
           <div class="pos-r">
             <label id="upload-photo-label" for="photo">PHOTO</label>
             <input id="photo" type="file"  accept="image/*" name="photo" placeholder="photo"
@@ -303,7 +304,7 @@
                 <div *ngIf="f.photo.errors.pattern">This value should be a valid photo</div>
               </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="modal-footer">
