@@ -325,41 +325,41 @@ export const MENU: MenuItem[] = [
             }
         ]
     },
-   /*  {
-        id: 52,
-        label: 'MENUITEMS.BLOG.TEXT',
-        icon: 'bx-file',
-        badge: {
-            variant: 'success',
-            text: 'MENUITEMS.EMAIL.LIST.TEMPLATE.BADGE',
-        },
-        subItems: [
-            {
-                id: 53,
-                label: 'MENUITEMS.BLOG.LIST.BLOGLIST',
-                link: '/blog/list',
-                parentId: 52
-            },
-            {
-                id: 54,
-                label: 'MENUITEMS.BLOG.LIST.BLOGGRID',
-                link: '/blog/grid',
-                parentId: 52
-            },
-            {
-                id: 55,
-                label: 'MENUITEMS.BLOG.LIST.DETAIL',
-                link: '/blog/detail',
-                parentId: 52
-            },
-        ]
-    },
-    {
-        id: 56,
-        label: 'MENUITEMS.PAGES.TEXT',
-        isTitle: true
-    }, */
- /*    {
+    //  {
+    //     id: 52,
+    //     label: 'MENUITEMS.BLOG.TEXT',
+    //     icon: 'bx-file',
+    //     badge: {
+    //         variant: 'success',
+    //         text: 'MENUITEMS.EMAIL.LIST.TEMPLATE.BADGE',
+    //     },
+    //     subItems: [
+    //         {
+    //             id: 53,
+    //             label: 'MENUITEMS.BLOG.LIST.BLOGLIST',
+    //             link: '/blog/list',
+    //             parentId: 52
+    //         },
+    //         {
+    //             id: 54,
+    //             label: 'MENUITEMS.BLOG.LIST.BLOGGRID',
+    //             link: '/blog/grid',
+    //             parentId: 52
+    //         },
+    //         {
+    //             id: 55,
+    //             label: 'MENUITEMS.BLOG.LIST.DETAIL',
+    //             link: '/blog/detail',
+    //             parentId: 52
+    //         },
+    //     ]
+    // },
+    // {
+    //     id: 56,
+    //     label: 'MENUITEMS.PAGES.TEXT',
+    //     isTitle: true
+    // },
+   {
         id: 57,
         label: 'MENUITEMS.AUTHENTICATION.TEXT',
         icon: 'bx-user-circle',
@@ -392,12 +392,12 @@ export const MENU: MenuItem[] = [
                 link: '/account/reset-password',
                 parentId: 57
             },
-            {
-                id: 63,
-                label: 'MENUITEMS.AUTHENTICATION.LIST.RECOVERPWD2',
-                link: '/account/recoverpwd-2',
-                parentId: 57
-            },
+            // {
+            //     id: 63,
+            //     label: 'MENUITEMS.AUTHENTICATION.LIST.RECOVERPWD2',
+            //     link: '/account/recoverpwd-2',
+            //     parentId: 57
+            // },
             {
                 id: 64,
                 label: 'MENUITEMS.AUTHENTICATION.LIST.LOCKSCREEN',
@@ -447,7 +447,7 @@ export const MENU: MenuItem[] = [
                 parentId: 57
             }
         ]
-    }, */
+    },
     /* {
         id: 72,
         label: 'MENUITEMS.UTILITY.TEXT',

@@ -7,6 +7,7 @@ import { getFirebaseBackend } from '../../authUtils';
 import { User } from '../models/auth.models';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { Observable } from 'rxjs';
+import { Configpass } from '../models/configpass';
 
 @Injectable({ providedIn: 'root' })
 
@@ -42,7 +43,12 @@ export class AuthenticationService {
   }
 
 
-
+  public resetPassword2(email: string): Observable<User> {
+    return this.http.post<User>(`${this.host}/auth/request-reset-email/`, email);
+  }
+  public resetpassafteremail(data:Configpass):Observable<any>{   
+    return this.http.patch(`${this.host}/auth/password-reset-complete/`, data)
+  }
   /*  public register(user: User):Observable<User> {
      return this.http.post<User>
      (`${this.host}/user/register`,user);

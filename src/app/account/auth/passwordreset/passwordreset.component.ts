@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthenticationService } from '../../../core/services/auth.service';
 import { environment } from '../../../../environments/environment';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-passwordreset',
@@ -26,7 +27,7 @@ export class PasswordresetComponent implements OnInit, AfterViewInit {
   year: number = new Date().getFullYear();
 
   // tslint:disable-next-line: max-line-length
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService) { }
+  constructor(private formBuilder: FormBuilder,private authServ:AuthenticationService, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
 
@@ -52,11 +53,14 @@ export class PasswordresetComponent implements OnInit, AfterViewInit {
     if (this.resetForm.invalid) {
       return;
     }
-    if (environment.defaultauth === 'firebase') {
-      this.authenticationService.resetPassword(this.f.email.value)
-        .catch(error => {
+    if (!this.resetForm.invalid) {
+      this.authServ.resetPassword2(this.resetForm.value).subscribe((response)=>{
+        console.log(response);
+        },
+        error => {
           this.error = error ? error : '';
-        });
+        }
+      );
     }
   }
 }
